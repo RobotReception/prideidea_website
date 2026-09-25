@@ -1,44 +1,58 @@
-import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
-import { NAV_ITEMS, siteConfig } from '@/shared/config'
-import { Container, Logo, Text } from '@/shared/ui'
+import { SITE } from '@/shared/config'
+import { FOOTER } from '@/shared/content'
+import { Container, Logo } from '@/shared/ui'
 
 export function Footer() {
-  const { t } = useTranslation()
-  const year = new Date().getFullYear()
-
   return (
-    <footer className="border-t border-border bg-surface">
-      <Container className="flex flex-col gap-10 py-12 md:flex-row md:items-start md:justify-between">
-        <div className="flex max-w-xs flex-col gap-3">
-          <Logo />
-          <Text size="sm" tone="muted">
-            {t('footer.tagline')}
-          </Text>
+    <footer className="on-dark bg-night text-gypsum">
+      <Container className="grid gap-12 py-16 md:grid-cols-12">
+        <div className="flex flex-col gap-5 md:col-span-4">
+          <Logo light className="h-10 self-start" />
+          <p className="max-w-xs text-small text-mist">{FOOTER.about}</p>
+          <p className="font-display text-h3">
+            {FOOTER.sloganAr}
+            <span className="mt-1 block font-sans text-small text-mist" lang="en" dir="ltr">
+              {FOOTER.sloganEn}
+            </span>
+          </p>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-3">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {t(item.labelKey)}
-            </Link>
-          ))}
-        </nav>
+        {FOOTER.groups.map((group) => (
+          <nav key={group.title} aria-label={group.title} className="md:col-span-2">
+            <h2 className="mb-4 text-small font-semibold text-mist">{group.title}</h2>
+            <ul className="flex flex-col gap-3">
+              {group.links.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className="transition-colors hover:text-amber">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
 
-        <a
-          href={`mailto:${siteConfig.email}`}
-          className="text-sm text-muted-foreground hover:text-foreground"
-          dir="ltr"
-        >
-          {siteConfig.email}
-        </a>
+        <address className="flex flex-col gap-3 not-italic md:col-span-2">
+          <h2 className="mb-1 text-small font-semibold text-mist">تواصل معنا</h2>
+          <a
+            href={`tel:${SITE.phone.replace(/\s/g, '')}`}
+            className="self-start hover:text-amber"
+            dir="ltr"
+          >
+            {SITE.phone}
+          </a>
+          <a href={`mailto:${SITE.email}`} className="self-start hover:text-amber" dir="ltr">
+            {SITE.email}
+          </a>
+          <span>{SITE.address}</span>
+          <span className="text-mist" dir="ltr">
+            {SITE.socialHandle}
+          </span>
+        </address>
       </Container>
-      <Container className="border-t border-border py-6 text-xs text-muted-foreground">
-        © {year} {siteConfig.name}. {t('footer.rights')}
+      <Container className="border-t border-mullion-dark py-6 text-small text-mist">
+        {FOOTER.rights}
       </Container>
     </footer>
   )

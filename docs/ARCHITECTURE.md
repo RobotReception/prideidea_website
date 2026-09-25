@@ -5,18 +5,16 @@ layers, and each layer may only import from the layers **below** it.
 
 ```
 src/
-├── app/          # Composition root: providers, router, <App />
-│   ├── providers/
+├── app/          # Composition root: router, <App />
 │   └── router/
 ├── pages/        # One folder per route. Composes widgets & features.
-├── widgets/      # Large, self-contained UI blocks (header, footer, services grid, layout…)
+├── widgets/      # Large UI blocks (header, footer, qamariya, WhatsApp, layout)
 ├── features/     # User interactions with business logic (contact form…)
 ├── shared/       # Reusable, business-agnostic code
-│   ├── ui/       # Design-system primitives (Button, Card, Section, Heading…)
+│   ├── ui/       # Design-system primitives (Button, Section, Heading, Pending…)
 │   ├── lib/      # Utilities (cn…)
-│   ├── hooks/    # Generic hooks (useTheme, usePageMeta…)
-│   ├── config/   # Site config, route map, navigation
-│   └── i18n/     # i18next setup + locales (ar, en)
+│   ├── config/   # Site config and route map
+│   └── content/  # All copy, verbatim from «محتوى موقع برايد آيديا»
 ├── styles/       # tokens.css (design tokens) + globals.css (Tailwind entry)
 └── test/         # Test setup
 ```
@@ -39,13 +37,13 @@ app  →  pages  →  widgets  →  features  →  shared
 - **Files**: `kebab-case.tsx`. **Components**: `PascalCase`, named exports
   (pages use a `default` export so they can be lazy-loaded).
 - **Routes**: declared once in `shared/config/routes.ts` (`ROUTES`), never hard-coded.
-- **Text**: never hard-code user-facing strings — add keys to both `ar.json` and `en.json`.
-  Keys are type-checked, and a test fails if the locales drift apart.
+- **Copy**: lives in `shared/content`, copied verbatim from the content document. Never
+  invent marketing text or numbers; keep `[pending]` brackets — they render as placeholders.
 - **Tests**: colocated as `*.test.ts(x)` next to the code under test.
 
 ## Adding a page
 
 1. Create `src/pages/<name>/<name>-page.tsx` with a default export.
-2. Add the path to `ROUTES` (and to `NAV_ITEMS` if it belongs in the navigation).
+2. Add the path to `ROUTES` (and to `MAIN_NAV` in `shared/content` if it belongs in the navigation).
 3. Register it in `src/app/router/index.tsx` with `lazy: page(() => import(...))`.
-4. Add its translations to both locale files and call `usePageMeta` for the title.
+4. Put its copy in `shared/content` and render `<Seo title description />` at the top.

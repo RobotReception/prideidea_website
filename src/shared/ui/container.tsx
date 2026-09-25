@@ -1,11 +1,7 @@
-import type { ComponentProps } from 'react'
 import { cn } from '@/shared/lib'
 
-export function Container({ className, ...props }: ComponentProps<'div'>) {
+export function Container({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div
-      className={cn('mx-auto w-full max-w-(--container-max) px-4 sm:px-6 lg:px-8', className)}
-      {...props}
-    />
+    <div className={cn('mx-auto w-full max-w-(--container) px-(--gutter)', className)} {...props} />
   )
 }

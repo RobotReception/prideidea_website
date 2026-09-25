@@ -1,16 +1,10 @@
-/**
- * Design system — UI primitives.
- * Import from '@/shared/ui' only; never deep-import individual files.
- */
-export { Badge } from './badge'
+/** Design system primitives. Import from '@/shared/ui' only. */
 export { Button, ButtonLink } from './button'
-export { buttonVariants } from './button-variants'
-export type { ButtonProps, ButtonLinkProps } from './button'
-export { Card, CardDescription, CardTitle } from './card'
 export { Container } from './container'
-export { Input, Label, Textarea } from './form'
+export { GlassPane } from './glass'
+export { Heading } from './heading'
 export { Logo } from './logo'
-export { Section, SectionHeader } from './section'
-export type { SectionProps } from './section'
-export { Heading, Text } from './typography'
-export type { HeadingProps, TextProps } from './typography'
+export { Pending, RichText } from './pending'
+export { Section, type SectionProps } from './section'
+export { Seo } from './seo'
+export { TextLink } from './text-link'

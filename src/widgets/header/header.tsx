@@ -1,83 +1,89 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router'
-import { NAV_ITEMS, ROUTES } from '@/shared/config'
+import { EXPERT_CTA, MAIN_NAV } from '@/shared/content'
 import { cn } from '@/shared/lib'
-import { Button, ButtonLink, Container, Logo } from '@/shared/ui'
-import { LanguageSwitcher } from './language-switcher'
-import { ThemeToggle } from './theme-toggle'
+import { ButtonLink, Container, Logo } from '@/shared/ui'
 
-const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+const linkClass = ({ isActive }: { isActive: boolean }) =>
   cn(
-    'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-    isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
+    'relative py-2 text-small font-medium transition-colors',
+    isActive
+      ? 'text-night after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-amber'
+      : 'text-slate hover:text-night',
   )
 
 export function Header() {
-  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
 
+  // Lock page scroll and allow Escape while the mobile menu is open.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
 
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 border-b transition-colors duration-300',
-        scrolled || open
-          ? 'border-border bg-background/80 backdrop-blur-lg'
-          : 'border-transparent bg-transparent',
-      )}
-    >
-      <Container className="flex h-(--header-height) items-center justify-between gap-4">
-        <Logo />
+    <header className="sticky top-0 z-40 border-b border-mullion bg-gypsum">
+      <Container className="flex h-(--header-h) items-center gap-6">
+        <Logo className="h-8 sm:h-10" />
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <NavLink key={item.to} to={item.to} end className={navLinkClass}>
-              {t(item.labelKey)}
-            </NavLink>
-          ))}
+        <nav aria-label="القائمة الرئيسية" className="ms-auto hidden lg:block">
+          <ul className="flex items-center gap-6 xl:gap-8">
+            {MAIN_NAV.map((item) => (
+              <li key={item.to}>
+                <NavLink to={item.to} end className={linkClass}>
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
         </nav>
 
-        <div className="flex items-center gap-1">
-          <LanguageSwitcher />
-          <ThemeToggle />
-          <ButtonLink to={ROUTES.contact} size="sm" className="ms-2 hidden md:inline-flex">
-            {t('nav.cta')}
-          </ButtonLink>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X /> : <Menu />}
-          </Button>
-        </div>
+        <ButtonLink to={EXPERT_CTA.to} size="sm" className="ms-auto lg:ms-0">
+          {EXPERT_CTA.label}
+        </ButtonLink>
+
+        <button
+          type="button"
+          className="-me-2 grid size-11 place-items-center text-ink lg:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label={open ? 'إغلاق القائمة' : 'فتح القائمة'}
+          onClick={() => setOpen((o) => !o)}
+        >
+          {open ? <X aria-hidden /> : <Menu aria-hidden />}
+        </button>
       </Container>
 
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-border md:hidden">
-          {/* Close the menu when any link inside it is activated. */}
-          <Container className="flex flex-col gap-1 py-4" onClick={() => setOpen(false)}>
-            {NAV_ITEMS.map((item) => (
-              <NavLink key={item.to} to={item.to} end className={navLinkClass}>
-                {t(item.labelKey)}
-              </NavLink>
-            ))}
-            <ButtonLink to={ROUTES.contact} className="mt-2">
-              {t('nav.cta')}
-            </ButtonLink>
+        <nav
+          id="mobile-menu"
+          aria-label="القائمة الرئيسية"
+          className="fixed inset-x-0 top-(--header-h) bottom-0 overflow-y-auto border-t border-mullion bg-gypsum lg:hidden"
+        >
+          <Container>
+            {/* Clicking any link closes the menu. */}
+            <ul onClick={() => setOpen(false)} className="divide-y divide-mullion py-2">
+              {MAIN_NAV.map((item) => (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end
+                    className={({ isActive }) =>
+                      cn('block py-4 font-display text-h3', isActive ? 'text-night' : 'text-ink')
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </Container>
         </nav>
       )}

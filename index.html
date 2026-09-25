@@ -3,32 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PrideIdea</title>
-    <meta
-      name="description"
-      content="PrideIdea designs and builds digital products, brands and experiences."
-    />
-    <meta name="theme-color" content="#5b3fd6" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0e4157" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="PrideIdea" />
-    <meta property="og:description" content="Ideas built to last." />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Apply theme before paint to avoid a flash of the wrong theme. -->
+    <!-- Lets the qamariya start from clear glass before first paint when motion is allowed. -->
     <script>
-      try {
-        var t = localStorage.getItem('theme')
-        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches))
-          document.documentElement.classList.add('dark')
-      } catch (e) {}
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+        document.documentElement.dataset.motion = 'ok'
     </script>
   </head>
   <body>

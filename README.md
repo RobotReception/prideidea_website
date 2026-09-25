@@ -1,19 +1,19 @@
 # PrideIdea Website
 
-Marketing website for **PrideIdea**, built on a scalable, standards-based React architecture.
+Official website of **برايد آيديا لأنظمة الذكاء الاصطناعي** (Pride Idea) — Arabic, RTL.
 
 ## Tech stack
 
-| Area       | Choice                                                     |
-| ---------- | ---------------------------------------------------------- |
-| Framework  | React 19 + TypeScript (strict)                             |
-| Build tool | Vite                                                       |
-| Styling    | Tailwind CSS v4 + design tokens (CSS variables)            |
-| Components | Custom design system (`cva` variants, `tailwind-merge`)    |
-| Routing    | React Router (data router, lazy-loaded routes)             |
-| i18n       | i18next — Arabic (RTL, default) & English (LTR), type-safe |
-| Icons      | lucide-react                                               |
-| Quality    | oxlint, Prettier (+ Tailwind class sorting), Vitest + RTL  |
+| Area       | Choice                                                    |
+| ---------- | --------------------------------------------------------- |
+| Framework  | React 19 + TypeScript (strict)                            |
+| Build tool | Vite                                                      |
+| Styling    | Tailwind CSS v4 + design tokens (CSS variables)           |
+| Components | Custom design system (`cva` variants, `tailwind-merge`)   |
+| Routing    | React Router (data router, lazy-loaded routes)            |
+| Fonts      | Reem Kufi + IBM Plex Sans Arabic (self-hosted)            |
+| Icons      | lucide-react                                              |
+| Quality    | oxlint, Prettier (+ Tailwind class sorting), Vitest + RTL |
 
 ## Getting started
 

@@ -1,22 +1,20 @@
-import { useTranslation } from 'react-i18next'
 import { ROUTES } from '@/shared/config'
-import { usePageMeta } from '@/shared/hooks'
-import { ButtonLink, Container, Heading, Text } from '@/shared/ui'
+import { ButtonLink, Heading, Section, Seo } from '@/shared/ui'
 
 export default function NotFoundPage() {
-  const { t } = useTranslation()
-  usePageMeta({ title: t('notFound.title') })
-
   return (
-    <Container className="flex flex-col items-center gap-5 py-32 text-center">
-      <p className="text-7xl font-bold text-primary" dir="ltr">
+    <Section containerClassName="flex flex-col items-start gap-6">
+      <Seo title="الصفحة غير موجودة | برايد آيديا" description="الصفحة المطلوبة غير موجودة." />
+      <p className="font-display text-h2 text-slate" dir="ltr">
         404
       </p>
-      <Heading as="h1" size="h2">
-        {t('notFound.title')}
+      <Heading as="h1" size="h1" className="text-ink">
+        الصفحة غير موجودة
       </Heading>
-      <Text tone="muted">{t('notFound.subtitle')}</Text>
-      <ButtonLink to={ROUTES.home}>{t('notFound.back')}</ButtonLink>
-    </Container>
+      <p className="text-lead text-slate">ربما نُقلت الصفحة أو تغيّر رابطها.</p>
+      <ButtonLink to={ROUTES.home} variant="outline">
+        العودة إلى الرئيسية
+      </ButtonLink>
+    </Section>
   )
 }

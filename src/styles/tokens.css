@@ -1,108 +1,38 @@
 /*
- * Design tokens — the single source of truth for the visual language.
+ * Pride Idea design tokens.
  *
- * Layer 1 (primitives): raw palette values. Never used directly in components.
- * Layer 2 (semantic):   intent-based tokens (background, primary, border…)
- *                       that switch between light and dark themes.
- * Components consume semantic tokens only, through Tailwind utilities
- * generated in globals.css (e.g. `bg-primary`, `text-muted-foreground`).
+ * The palette comes from the brand (ink, night, amber) plus the glass of the
+ * Sana'ani qamariya (turquoise, ruby) and the gypsum of its frame.
+ * Contrast ratios are noted next to each colour that carries text.
+ *
+ * Rules:
+ *  - Amber marks actions only. It is never used as text on light backgrounds.
+ *  - Turquoise and ruby are glass: small flat fills, never gradients or glow.
+ *  - No shadows. Structure comes from mullions (hairlines), not elevation.
  */
-
 :root {
-  /* ---- Primitives ---- */
-  --brand-50: oklch(0.97 0.02 285);
-  --brand-100: oklch(0.94 0.04 285);
-  --brand-200: oklch(0.88 0.08 285);
-  --brand-300: oklch(0.8 0.13 285);
-  --brand-400: oklch(0.7 0.19 285);
-  --brand-500: oklch(0.6 0.23 285);
-  --brand-600: oklch(0.52 0.24 285);
-  --brand-700: oklch(0.45 0.21 285);
-  --brand-800: oklch(0.37 0.17 285);
-  --brand-900: oklch(0.3 0.12 285);
-  --brand-950: oklch(0.2 0.08 285);
+  /* Brand */
+  --c-ink: #0e4157; /* 10.2:1 on gypsum */
+  --c-night: #001322; /* 17.5:1 on gypsum */
+  --c-gypsum: #f4f7f8;
+  --c-white: #ffffff;
 
-  --accent-400: oklch(0.8 0.15 75);
-  --accent-500: oklch(0.74 0.17 65);
+  /* Qamariya glass */
+  --c-amber: #f39200; /* fills only; night text on amber = 8:1 */
+  --c-amber-deep: #a85f00; /* amber as text on gypsum = 4.5:1 */
+  --c-turquoise: #138a87; /* graphics only on light (3.9:1) */
+  --c-turquoise-light: #5cc8c2; /* text on night = 9.4:1 */
+  --c-ruby: #b4233c; /* 6:1 on gypsum */
 
-  --neutral-0: oklch(1 0 0);
-  --neutral-50: oklch(0.985 0.002 285);
-  --neutral-100: oklch(0.965 0.004 285);
-  --neutral-200: oklch(0.92 0.006 285);
-  --neutral-300: oklch(0.87 0.008 285);
-  --neutral-400: oklch(0.71 0.012 285);
-  --neutral-500: oklch(0.55 0.014 285);
-  --neutral-600: oklch(0.44 0.014 285);
-  --neutral-700: oklch(0.37 0.012 285);
-  --neutral-800: oklch(0.27 0.01 285);
-  --neutral-900: oklch(0.21 0.008 285);
-  --neutral-950: oklch(0.14 0.006 285);
+  /* Derived neutrals */
+  --c-slate: #4b6170; /* muted text, 6:1 on gypsum */
+  --c-mist: #9fb4c0; /* muted text on night, 8.7:1 */
+  --c-mullion: #d3dde2; /* hairlines on gypsum */
+  --c-mullion-dark: #1c3445; /* hairlines on night */
 
-  --red-500: oklch(0.63 0.22 25);
-  --green-500: oklch(0.7 0.17 150);
-
-  /* ---- Semantic: light theme ---- */
-  --background: var(--neutral-0);
-  --foreground: var(--neutral-950);
-  --surface: var(--neutral-50);
-  --surface-foreground: var(--neutral-900);
-  --muted: var(--neutral-100);
-  --muted-foreground: var(--neutral-500);
-  --border: var(--neutral-200);
-  --ring: var(--brand-500);
-
-  --primary: var(--brand-600);
-  --primary-hover: var(--brand-700);
-  --primary-foreground: var(--neutral-0);
-  --secondary: var(--brand-50);
-  --secondary-hover: var(--brand-100);
-  --secondary-foreground: var(--brand-800);
-  --accent: var(--accent-500);
-  --accent-foreground: var(--neutral-950);
-
-  --danger: var(--red-500);
-  --success: var(--green-500);
-
-  /* ---- Radius / shadow / motion ---- */
-  --rounded-sm: 0.375rem;
-  --rounded-md: 0.625rem;
-  --rounded-lg: 1rem;
-  --rounded-xl: 1.5rem;
-
-  --elevation-soft: 0 1px 2px oklch(0 0 0 / 0.04), 0 4px 16px oklch(0 0 0 / 0.06);
-  --elevation-elevated: 0 2px 4px oklch(0 0 0 / 0.04), 0 16px 40px oklch(0 0 0 / 0.1);
-
-  --motion-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fast: 150ms;
-  --duration-base: 250ms;
-
-  /* ---- Layout ---- */
-  --container-max: 80rem;
-  --header-height: 4.5rem;
-
-  color-scheme: light;
-}
-
-.dark {
-  --background: var(--neutral-950);
-  --foreground: var(--neutral-50);
-  --surface: var(--neutral-900);
-  --surface-foreground: var(--neutral-100);
-  --muted: var(--neutral-800);
-  --muted-foreground: var(--neutral-400);
-  --border: var(--neutral-800);
-  --ring: var(--brand-400);
-
-  --primary: var(--brand-500);
-  --primary-hover: var(--brand-400);
-  --primary-foreground: var(--neutral-0);
-  --secondary: var(--brand-950);
-  --secondary-hover: var(--brand-900);
-  --secondary-foreground: var(--brand-200);
-  --accent: var(--accent-400);
-
-  --elevation-soft: 0 1px 2px oklch(0 0 0 / 0.3), 0 4px 16px oklch(0 0 0 / 0.3);
-  --elevation-elevated: 0 2px 4px oklch(0 0 0 / 0.3), 0 16px 40px oklch(0 0 0 / 0.45);
-
-  color-scheme: dark;
+  /* Layout */
+  --container: 76rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --header-h: 4.5rem;
+  --section-y: clamp(4rem, 9vw, 7.5rem);
 }

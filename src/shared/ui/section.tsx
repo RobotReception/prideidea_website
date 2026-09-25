@@ -1,59 +1,43 @@
 import { cva, type VariantProps } from 'class-variance-authority'
-import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '@/shared/lib'
 import { Container } from './container'
-import { Heading, Text } from './typography'
 
-const sectionVariants = cva('relative', {
+/**
+ * The only place vertical spacing between sections is defined.
+ * Components inside a section never set outer margins.
+ */
+const sectionVariants = cva('', {
   variants: {
-    spacing: { sm: 'py-12 md:py-16', md: 'py-16 md:py-24', lg: 'py-24 md:py-32' },
-    tone: { default: '', surface: 'bg-surface text-surface-foreground' },
+    spacing: {
+      default: 'py-(--section-y)',
+      compact: 'py-[calc(var(--section-y)*0.5)]',
+    },
+    tone: {
+      gypsum: 'bg-gypsum text-night',
+      white: 'bg-white text-night',
+      night: 'on-dark bg-night text-gypsum',
+      ink: 'on-dark bg-ink text-gypsum',
+    },
+    rule: { true: 'border-t border-mullion', false: '' },
   },
-  defaultVariants: { spacing: 'md', tone: 'default' },
+  defaultVariants: { spacing: 'default', tone: 'gypsum', rule: false },
 })
 
-export type SectionProps = ComponentProps<'section'> & VariantProps<typeof sectionVariants>
+export type SectionProps = React.ComponentProps<'section'> &
+  VariantProps<typeof sectionVariants> & { containerClassName?: string }
 
-export function Section({ className, spacing, tone, children, ...props }: SectionProps) {
-  return (
-    <section className={cn(sectionVariants({ spacing, tone }), className)} {...props}>
-      <Container>{children}</Container>
-    </section>
-  )
-}
-
-type SectionHeaderProps = {
-  title: ReactNode
-  subtitle?: ReactNode
-  eyebrow?: ReactNode
-  align?: 'start' | 'center'
-  className?: string
-}
-
-export function SectionHeader({
-  title,
-  subtitle,
-  eyebrow,
-  align = 'center',
+export function Section({
   className,
-}: SectionHeaderProps) {
+  containerClassName,
+  spacing,
+  tone,
+  rule,
+  children,
+  ...props
+}: SectionProps) {
   return (
-    <div
-      className={cn(
-        'mb-12 flex max-w-2xl flex-col gap-4 md:mb-16',
-        align === 'center' && 'mx-auto items-center text-center',
-        className,
-      )}
-    >
-      {eyebrow}
-      <Heading as="h2" size="h2">
-        {title}
-      </Heading>
-      {subtitle && (
-        <Text size="lg" tone="muted">
-          {subtitle}
-        </Text>
-      )}
-    </div>
+    <section className={cn(sectionVariants({ spacing, tone, rule }), className)} {...props}>
+      <Container className={containerClassName}>{children}</Container>
+    </section>
   )
 }

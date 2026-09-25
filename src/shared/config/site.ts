@@ -1,11 +1,10 @@
-export const siteConfig = {
-  name: 'PrideIdea',
+export const SITE = {
+  name: 'برايد آيديا',
+  legalName: 'برايد آيديا لأنظمة الذكاء الاصطناعي',
   url: import.meta.env.VITE_SITE_URL ?? 'https://prideidea.com',
-  email: 'hello@prideidea.com',
-  phone: '+000 000 000 000',
-  social: {
-    x: 'https://x.com/',
-    linkedin: 'https://linkedin.com/',
-    instagram: 'https://instagram.com/',
-  },
+  phone: '+967 775 451 608',
+  whatsapp: 'https://wa.me/967775451608',
+  email: 'info@prideidea.com',
+  address: 'صنعاء، الجمهورية اليمنية',
+  socialHandle: 'pridea2025',
 } as const

@@ -1,59 +1,58 @@
-# Design system
+# Design system — Pride Idea
 
-## Tokens
+## Concept: the qamariya that sorts light
 
-All visual decisions live in [`src/styles/tokens.css`](../src/styles/tokens.css), in two layers:
+A Sana'ani qamariya takes raw sunlight and turns it into ordered, coloured
+patterns — the same thing Pride Idea does with data. The qamariya appears
+**once**, in full, in the home hero (`src/widgets/qamariya`). Elsewhere only
+its logic is used: panes separated by mullions.
 
-1. **Primitives** — the raw palette (`--brand-500`, `--neutral-200`…). Never used in components.
-2. **Semantic tokens** — describe intent and switch per theme:
+## Colour (`src/styles/tokens.css`)
 
-| Token                                 | Use                                   |
-| ------------------------------------- | ------------------------------------- |
-| `background` / `foreground`           | Page background and main text         |
-| `surface` / `surface-foreground`      | Alternate section background          |
-| `muted` / `muted-foreground`          | Subtle fills, secondary text          |
-| `border`, `ring`                      | Borders, focus rings                  |
-| `primary` (`-hover`, `-foreground`)   | Main brand actions                    |
-| `secondary` (`-hover`, `-foreground`) | Soft brand fills (badges, icon tiles) |
-| `accent`, `danger`, `success`         | Highlights and status                 |
+| Name           | Hex       | Tailwind         | Role / contrast                                |
+| -------------- | --------- | ---------------- | ---------------------------------------------- |
+| Sana'a ink     | `#0E4157` | `ink`            | Headings, frames — 10.2:1 on gypsum            |
+| Qamariya night | `#001322` | `night`          | Body text, dark sections — 17.5:1              |
+| Gypsum         | `#F4F7F8` | `gypsum`         | Page background                                |
+| Amber          | `#F39200` | `amber`          | **Actions only.** Fill; night text on it = 8:1 |
+| Turquoise      | `#138A87` | `turquoise`      | Glass — graphics only on light                 |
+| Ruby           | `#B4233C` | `ruby`           | Glass, form errors — 6:1                       |
+| Slate / Mist   |           | `slate` / `mist` | Muted text on light (6:1) / on night (8.7:1)   |
+| Mullion        |           | `mullion`        | Hairlines                                      |
 
-`globals.css` maps them to Tailwind, so use utilities like `bg-primary`,
-`text-muted-foreground`, `border-border`, `rounded-lg`, `shadow-soft`.
-**Never use raw colors** (`bg-violet-600`, hex values) in components.
+Product glass: DarAI amber · PrideScreen ruby · PridePass turquoise · الدعوات الذكية clear.
 
-To rebrand, change the `--brand-*` and `--accent-*` primitives and every component follows.
+## Type
 
-## Theming
+- **Reem Kufi** (`font-display`) — display, h1, h2 only.
+- **IBM Plex Sans Arabic** (`font-sans`) — body, UI, h3, Latin product names.
+- Scale: `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-lead`, `text-body`, `text-small`
+  (fluid sizes, generous Arabic line-heights). Fonts are self-hosted via `@fontsource`.
 
-- Light/dark is driven by the `.dark` class on `<html>` (`ThemeProvider` + `useTheme()`).
-- An inline script in `index.html` applies the saved theme before first paint (no flash).
+## Rules
+
+1. **Mullions, not cards.** Group related items in one ruled grid or list. No shadows
+   (shadow utilities are disabled in the theme).
+2. **Colour is glass.** Flat, small fills. No gradients, no glow.
+3. **Type leads.** No decorative icons for services, sectors or reasons.
+4. **Pending content is visible.** Text in `[brackets]` in the content document renders
+   striped via `<RichText>` / `<Pending>` until verified.
+5. **One motion moment** — the qamariya on load. Otherwise motion only responds to the
+   user. `prefers-reduced-motion` shows the final state.
+6. No hover effects on grids of items; no arrows on buttons or links.
+
+## Spacing
+
+Vertical space between sections is owned by `<Section>` (`--section-y`). Components
+inside a section never set outer margins — use `gap` instead.
 
 ## Components (`@/shared/ui`)
 
-| Component                                     | Notes                                                                          |
-| --------------------------------------------- | ------------------------------------------------------------------------------ |
-| `Button`, `ButtonLink`                        | `variant`: primary, secondary, outline, ghost, link · `size`: sm, md, lg, icon |
-| `Heading`                                     | `as` (semantic tag) is separate from `size` (display, h1–h4)                   |
-| `Text`                                        | `size`: sm, md, lg · `tone`: default, muted                                    |
-| `Container`                                   | Max width + responsive gutters                                                 |
-| `Section`, `SectionHeader`                    | Vertical rhythm (`spacing`) + `tone="surface"`                                 |
-| `Card`, `CardTitle`, `CardDescription`        |                                                                                |
-| `Badge`, `Input`, `Textarea`, `Label`, `Logo` |                                                                                |
+`ButtonLink`/`Button` (`amber`, `outline`, `outline-light`) · `TextLink` · `Heading`
+(`as` separate from `size`) · `Section` (`tone`: gypsum, white, night, ink; `rule`;
+`spacing`) · `Container` · `GlassPane` · `Pending`/`RichText` · `Logo` · `Seo`.
 
-Variants are built with `cva`; always merge external classes with `cn()` so callers can
-override styles safely.
+## RTL
 
-## RTL & bidirectional layout
-
-Arabic is the default language. `<html dir>` updates automatically when the language changes.
-
-- Use **logical** utilities: `ms-*`/`me-*`, `ps-*`/`pe-*`, `start-*`/`end-*`, `text-start`.
-  Avoid `ml-*`, `mr-*`, `left-*`, `right-*`, `text-left`.
-- Flip directional icons (arrows) with `i18n.dir()`, or use the `rtl:` variant.
-- Wrap Latin-only content (emails, phone numbers, the brand name) in `dir="ltr"`.
-
-## Accessibility
-
-- Visible `:focus-visible` ring from tokens; skip-to-content link in the layout.
-- Icon-only buttons need an `aria-label`; decorative icons get `aria-hidden`.
-- `prefers-reduced-motion` disables animations globally.
+The whole site is Arabic, `dir="rtl"`. Use logical utilities (`ms-`, `pe-`, `start-`,
+`end-`). Wrap phone numbers, emails and Latin handles in `dir="ltr"`.
