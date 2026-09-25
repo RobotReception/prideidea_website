@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "PrideIdea — Ideas built to last",
+    "description": "PrideIdea designs and builds digital products, brands and experiences."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "cta": "Start a project",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content"
+  },
+  "theme": { "toggle": "Toggle theme" },
+  "language": { "switch": "العربية" },
+  "home": {
+    "badge": "Digital studio",
+    "title": "We turn bold ideas into products people love",
+    "subtitle": "Strategy, design and engineering under one roof — built for brands that want to lead, not follow.",
+    "primaryCta": "Start a project",
+    "secondaryCta": "Explore services",
+    "stats": {
+      "projects": "Projects delivered",
+      "clients": "Happy clients",
+      "years": "Years of experience"
+    },
+    "servicesTitle": "What we do",
+    "servicesSubtitle": "End-to-end capabilities to take your product from idea to launch.",
+    "ctaTitle": "Have an idea? Let’s build it together.",
+    "ctaSubtitle": "Tell us about your project and we’ll get back to you within one business day."
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Everything you need to launch and scale your digital presence.",
+    "items": {
+      "strategy": {
+        "title": "Product strategy",
+        "description": "Research, positioning and roadmaps that align your product with real market needs."
+      },
+      "design": {
+        "title": "UI/UX design",
+        "description": "Interfaces that are beautiful, accessible and effortless to use."
+      },
+      "web": {
+        "title": "Web development",
+        "description": "Fast, secure and scalable websites and web apps built with modern technology."
+      },
+      "mobile": {
+        "title": "Mobile apps",
+        "description": "Native-quality iOS and Android experiences from a single codebase."
+      },
+      "branding": {
+        "title": "Branding",
+        "description": "Identities with a clear voice that make your brand memorable."
+      },
+      "growth": {
+        "title": "Growth & SEO",
+        "description": "Data-driven optimization to grow traffic, conversion and retention."
+      }
+    }
+  },
+  "about": {
+    "title": "About us",
+    "subtitle": "A team of designers and engineers who take pride in every idea we ship.",
+    "mission": "Our mission",
+    "missionText": "To help ambitious teams build digital products that are useful, beautiful and built to last.",
+    "vision": "Our vision",
+    "visionText": "To be the partner of choice for brands shaping the future of the region."
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "We’d love to hear about your project.",
+    "form": {
+      "name": "Full name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send message",
+      "success": "Thanks! Your message has been received."
+    }
+  },
+  "footer": {
+    "tagline": "Ideas built to last.",
+    "rights": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "subtitle": "The page you’re looking for doesn’t exist or has been moved.",
+    "back": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "subtitle": "An unexpected error occurred. Please try again.",
+    "back": "Back to home"
+  }
+}
