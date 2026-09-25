@@ -1,0 +1,38 @@
+/*
+ * Pride Idea design tokens.
+ *
+ * The palette comes from the brand (ink, night, amber) plus the glass of the
+ * Sana'ani qamariya (turquoise, ruby) and the gypsum of its frame.
+ * Contrast ratios are noted next to each colour that carries text.
+ *
+ * Rules:
+ *  - Amber marks actions only. It is never used as text on light backgrounds.
+ *  - Turquoise and ruby are glass: small flat fills, never gradients or glow.
+ *  - No shadows. Structure comes from mullions (hairlines), not elevation.
+ */
+:root {
+  /* Brand */
+  --c-ink: #0e4157; /* 10.2:1 on gypsum */
+  --c-night: #001322; /* 17.5:1 on gypsum */
+  --c-gypsum: #f4f7f8;
+  --c-white: #ffffff;
+
+  /* Qamariya glass */
+  --c-amber: #f39200; /* fills only; night text on amber = 8:1 */
+  --c-amber-deep: #a85f00; /* amber as text on gypsum = 4.5:1 */
+  --c-turquoise: #138a87; /* graphics only on light (3.9:1) */
+  --c-turquoise-light: #5cc8c2; /* text on night = 9.4:1 */
+  --c-ruby: #b4233c; /* 6:1 on gypsum */
+
+  /* Derived neutrals */
+  --c-slate: #4b6170; /* muted text, 6:1 on gypsum */
+  --c-mist: #9fb4c0; /* muted text on night, 8.7:1 */
+  --c-mullion: #d3dde2; /* hairlines on gypsum */
+  --c-mullion-dark: #1c3445; /* hairlines on night */
+
+  /* Layout */
+  --container: 76rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --header-h: 4.5rem;
+  --section-y: clamp(4rem, 9vw, 7.5rem);
+}

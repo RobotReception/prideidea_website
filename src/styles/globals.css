@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@theme inline {
+  --color-ink: var(--c-ink);
+  --color-night: var(--c-night);
+  --color-gypsum: var(--c-gypsum);
+  --color-white: var(--c-white);
+  --color-amber: var(--c-amber);
+  --color-amber-deep: var(--c-amber-deep);
+  --color-turquoise: var(--c-turquoise);
+  --color-turquoise-light: var(--c-turquoise-light);
+  --color-ruby: var(--c-ruby);
+  --color-slate: var(--c-slate);
+  --color-mist: var(--c-mist);
+  --color-mullion: var(--c-mullion);
+  --color-mullion-dark: var(--c-mullion-dark);
+}
+
+@theme {
+  --font-display: 'Reem Kufi Variable', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+
+  /* Type scale — Arabic needs generous line-height. */
+  --text-display: clamp(2.6rem, 6vw, 4.75rem);
+  --text-display--line-height: 1.2;
+  --text-h1: clamp(2.2rem, 4.5vw, 3.4rem);
+  --text-h1--line-height: 1.25;
+  --text-h2: clamp(1.7rem, 3vw, 2.4rem);
+  --text-h2--line-height: 1.3;
+  --text-h3: 1.35rem;
+  --text-h3--line-height: 1.5;
+  --text-lead: 1.2rem;
+  --text-lead--line-height: 1.9;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.85;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.6;
+
+  /* Shadows are intentionally unavailable. */
+  --shadow-*: initial;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  body {
+    @apply bg-gypsum font-sans text-body text-night;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--c-amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--c-amber);
+    color: var(--c-night);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Pending content: text in [brackets] in the content document that must be
+   * replaced with verified data before launch. Striped so it's never mistaken
+   * for final copy.
+   */
+  .pending {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--c-amber) 16%, transparent) 0 6px,
+      transparent 6px 12px
+    );
+    outline: 1px dashed var(--c-amber-deep);
+    outline-offset: -1px;
+    border-radius: 2px;
+  }
+  .on-dark .pending {
+    outline-color: var(--c-amber);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--c-amber) 22%, transparent) 0 6px,
+      transparent 6px 12px
+    );
+  }
+}
+
+/*
+ * Qamariya: when motion is allowed, panes start as clear glass and the
+ * floor cast is hidden until the animation (Web Animations API) plays.
+ * `data-motion` is set by an inline script in index.html before first paint.
+ */
+.qamariya {
+  --q-clear: #e6eef2;
+}
+html[data-motion='ok'] .qamariya .q-pane {
+  fill: var(--q-clear);
+}
+html[data-motion='ok'] .qamariya [data-cast] {
+  opacity: 0;
+}

@@ -1,0 +1,10 @@
+/** Design system primitives. Import from '@/shared/ui' only. */
+export { Button, ButtonLink } from './button'
+export { Container } from './container'
+export { GlassPane } from './glass'
+export { Heading } from './heading'
+export { Logo } from './logo'
+export { Pending, RichText } from './pending'
+export { Section, type SectionProps } from './section'
+export { Seo } from './seo'
+export { TextLink } from './text-link'
