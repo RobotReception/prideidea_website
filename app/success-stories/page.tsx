@@ -1,13 +1,24 @@
-import type { Metadata } from "next";
-import { CtaBand, ContentText, PageFrame, PageIntro } from "../site/shared";
+import { getContent, pageMetadata } from "../content";
+import { BulletList, ContentText, CtaBand, PageFrame, PageIntro, PolicyNote } from "../site/shared";
 
-export const metadata: Metadata = { title: "قصص النجاح", description: "نتائج نفخر بها من حلول برايد آيديا للذكاء الاصطناعي المؤسسي.", openGraph: { title: "قصص النجاح", description: "نقيس نجاحنا بما يتغير فعلًا في مؤسسات عملائنا.", locale: "ar_YE", type: "website" } };
+export const generateMetadata = () => pageMetadata((t) => t.storiesPage.meta);
 
-export default function SuccessStoriesPage() {
-  return <PageFrame><main id="main-content"><PageIntro eyebrow="قصص النجاح" title="نتائج نفخر بها" description="نقيس نجاحنا بما يتغير فعلًا في مؤسسات عملائنا." />
+export default async function SuccessStoriesPage() {
+  const { t: { storiesPage: page } } = await getContent();
+  const { labels } = page;
+  return <PageFrame><main id="main-content"><PageIntro eyebrow={page.eyebrow} title={page.title} description={page.description} />
     <section className="pi-page-body"><div className="pi-wrap">
-      <article className="pi-content-section"><p className="pi-eyebrow">التعليم والجامعات</p><h2>وضّاح الرازي — جامعة الرازي</h2><p><strong>العميل:</strong> جامعة الرازي، مؤسسة تعليم عالٍ.</p><p><strong>التحدي:</strong> آلاف الاستفسارات من الطلاب والزوار عبر قنوات متعددة، خصوصًا في مواسم التسجيل، مع فريق محدود للرد.</p><p><strong>الحل:</strong> بنينا «وضّاح»، مساعدًا ذكيًا يعرف لوائح الجامعة وخدماتها، ويخدم الطلاب والزوار عبر واتساب وفيسبوك وإنستغرام والموقع الإلكتروني. يجيب عن الاستفسارات الأكاديمية، ويوجّه الطلاب في التسجيل، ويستقبل الزوار رقميًا.</p><h3>النتائج</h3><ul className="pi-list"><li><ContentText text="[أكثر من 5,000] محادثة." /></li><li><ContentText text="تحسّن [بنحو 65%] في كفاءة الاستجابة." /></li><li><ContentText text="خدمة متاحة على مدار الساعة عبر [خمس] قنوات." /></li></ul><p className="pi-policy-note"><ContentText text="[كلمة من مسؤول في الجامعة، بعد الحصول عليها.]" /></p></article>
-      <article className="pi-content-section is-soft"><h2>مؤسسة مالية</h2><p className="pi-policy-note"><ContentText text="[تُنشر بعد موافقة العميل على ذكر اسمه، وحسم حالة المشروع: تجريبي أم مكتمل.]" /></p><p><strong>العميل:</strong> <ContentText text="[اسم المؤسسة أو وصف عام: «مؤسسة مصرفية يمنية»]." /></p><p><strong>التحدي:</strong> <ContentText text="[...]" /></p><p><strong>الحل:</strong> <ContentText text="[...]" /></p><p><strong>النتائج:</strong> <ContentText text="[...]" /></p></article>
-    </div></section><div className="pi-wrap"><CtaBand title="هل تريد أن تكون قصة نجاحنا القادمة؟" button="تحدّث مع خبير" /></div>
+      {page.stories.map((story, index) => <article className={`pi-content-section${index % 2 ? " is-soft" : ""}`} key={story.title}>
+        {story.sector && <p className="pi-eyebrow">{story.sector}</p>}
+        <h2>{story.title}</h2>
+        {story.note && <PolicyNote text={story.note} />}
+        <p><strong>{labels.client}</strong> <ContentText text={story.client} /></p>
+        <p><strong>{labels.challenge}</strong> <ContentText text={story.challenge} /></p>
+        <p><strong>{labels.solution}</strong> <ContentText text={story.solution} /></p>
+        {story.results.length > 0 && <><h3>{labels.resultsHeading}</h3><BulletList items={story.results} /></>}
+        {story.resultsText && <p><strong>{labels.results}</strong> <ContentText text={story.resultsText} /></p>}
+        {story.quote && <PolicyNote text={story.quote} />}
+      </article>)}
+    </div></section><div className="pi-wrap"><CtaBand title={page.cta.title} button={page.cta.button} /></div>
   </main></PageFrame>;
 }

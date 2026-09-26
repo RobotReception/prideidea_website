@@ -1,0 +1,433 @@
+{
+  "meta": {
+    "siteName": "Pride Idea",
+    "description": "Arabic-first enterprise AI solutions from Sana'a.",
+    "ogLocale": "en_US",
+    "keywords": ["artificial intelligence", "enterprise solutions", "AI", "enterprise", "DarAI", "Pride Idea", "Yemen"]
+  },
+  "ui": {
+    "skipToContent": "Skip to content",
+    "homeAria": "Pride Idea — Home",
+    "logoAlt": "Pride Idea Artificial Intelligence Systems",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mainNav": "Main navigation",
+    "talkToExpert": "Talk to an expert",
+    "contactUs": "Contact us",
+    "themeToggle": "Toggle dark and light mode",
+    "languageSwitch": "العربية",
+    "languageSwitchShort": "ع",
+    "languageSwitchAria": "التبديل إلى العربية",
+    "whatsappAria": "Contact us on WhatsApp",
+    "arrow": "→",
+    "heroArrow": "↗",
+    "serviceDetails": "Service details",
+    "productDetails": "Product details",
+    "discoverProduct": "Explore product",
+    "allProducts": "All products"
+  },
+  "nav": [
+    { "href": "/about", "label": "About" },
+    { "href": "/services", "label": "Services" },
+    { "href": "/products", "label": "Products" },
+    { "href": "/industries", "label": "Industries" },
+    { "href": "/success-stories", "label": "Success stories" },
+    { "href": "/contact", "label": "Contact" }
+  ],
+  "footer": {
+    "wordmark": "Pride Idea",
+    "about": "Pride Idea Artificial Intelligence Systems — enterprise AI solutions from Sana'a.",
+    "motto": "Idea Inspires Pride",
+    "mottoSecondary": "الفكرة تُلهم الفخر",
+    "linksTitle": "Links",
+    "faqLink": "FAQ",
+    "productsTitle": "Products",
+    "contactTitle": "Contact us",
+    "location": "Sana'a, Republic of Yemen",
+    "copyright": "© 2026 Pride Idea Artificial Intelligence Systems. All rights reserved.",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use"
+  },
+  "home": {
+    "meta": {
+      "title": "Pride Idea",
+      "description": "Arabic-first enterprise AI. We turn your organization's challenges into intelligent systems that work for you.",
+      "ogDescription": "Enterprise AI solutions from Sana'a."
+    },
+    "hero": {
+      "badge": "Pride Idea Artificial Intelligence Systems",
+      "title": "AI solutions",
+      "titleAccent": "built for enterprises",
+      "lead": "We turn your organization's challenges into intelligent systems that work for you. We build digital assistants, automate workflows and connect your systems, so your organization runs faster and more accurately.",
+      "primaryCta": "Talk to an expert",
+      "secondaryCta": "Explore our services",
+      "proof": ["Arabic first", "Made in Sana'a", "Enterprise grade"]
+    },
+    "about": {
+      "eyebrow": "About us in brief",
+      "title": "Your partner in the shift to intelligent operations",
+      "text": "Pride Idea Artificial Intelligence Systems is a Yemeni technology company based in Sana'a. We develop Arabic-first enterprise AI solutions that help organizations move from fragmented manual work to intelligent operations driven by data and automation.",
+      "link": "Get to know us"
+    },
+    "services": { "eyebrow": "Services", "title": "What we offer your organization" },
+    "products": {
+      "eyebrow": "Product portfolio",
+      "title": "Products ready to deploy",
+      "description": "We have built products that solve recurring challenges for organizations. Each can be customized, connected to your systems and deployed the way that suits you."
+    },
+    "why": {
+      "eyebrow": "Why Pride Idea",
+      "title": "Why organizations choose us",
+      "reasons": [
+        { "title": "Arabic first", "text": "Our solutions are built to understand Arabic and local dialects." },
+        { "title": "Local market insight", "text": "We know the challenges organizations face in our region and design for them." },
+        { "title": "Your data, your control", "text": "Cloud, on your own servers, or fully sovereign deployment." },
+        { "title": "Solutions that actually work", "text": "We build systems that run and scale, not demo prototypes." },
+        { "title": "Works with what you have", "text": "We connect to your systems instead of asking you to replace them." }
+      ]
+    },
+    "cta": { "title": "Let's turn your idea into a working solution.", "description": "Tell us about the challenge you face, and we'll suggest the right path.", "button": "Contact us" },
+    "mottoAria": "Pride Idea motto"
+  },
+  "about": {
+    "meta": { "title": "About us", "description": "Learn about the story, vision and mission of Pride Idea Artificial Intelligence Systems in Sana'a.", "ogDescription": "Pride Idea Artificial Intelligence Systems, Sana'a." },
+    "eyebrow": "About us",
+    "title": "A future built intelligently, inspired by pride",
+    "description": "We believe AI is not a technical luxury but a practical tool that changes how organizations work and serve their customers.",
+    "story": {
+      "title": "Our story",
+      "paragraphs": [
+        "Pride Idea Artificial Intelligence Systems started in Sana'a in 2023 and was officially founded in January 2024, driven by the conviction that Arab organizations deserve AI solutions that understand their language, environment and needs.",
+        "We began with a simple question: why do customer messages get lost, the same questions repeat, and procedures stay manual even though the technology exists? From that question we built digital assistants and intelligent platforms now running at organizations in the education and finance sectors."
+      ],
+      "note": "[License number and date, and the \"first licensed Yemeni company\" claim once the official document is attached.]"
+    },
+    "vision": { "title": "Our vision", "text": "To be among the leading companies in Yemen and the region delivering Arabic enterprise AI solutions that are ready to run and scale." },
+    "mission": { "title": "Our mission", "text": "To harness AI and automation to improve how organizations work, turning their internal knowledge into digital assistants that deliver faster, more accurate service." },
+    "values": {
+      "title": "Our values",
+      "items": [
+        "Innovation: we always look for a smarter way to solve the problem.",
+        "Quality: we only deliver what we trust to work.",
+        "Responsibility: we handle our clients' data with complete integrity.",
+        "Continuous improvement: we learn and refine our solutions after every project.",
+        "Passion and commitment: we treat our clients' success as our own.",
+        "Pragmatism: we build solutions that run in production, not demo-only prototypes."
+      ]
+    },
+    "leadership": {
+      "title": "Leadership",
+      "name": "Mohammed Al-Shaibali — Founder & CEO",
+      "bio": "Leads the company's vision, strategy and product development, and oversees large language model and retrieval-augmented generation (RAG) solutions and enterprise partnerships. Active in spreading AI literacy through training programs and university clubs.",
+      "note": "[Profile photo + LinkedIn link]",
+      "team": "[Other team members, if you wish to feature them.]"
+    },
+    "capacity": {
+      "title": "We build people as we build systems",
+      "text": "We believe intelligent transformation starts with people. That is why we help train students and employees in AI and support specialized university clubs.",
+      "items": [
+        "[About 670] participants in our training programs.",
+        "Helped found the AI club at Al-Razi University, benefiting [about 359] students.",
+        "Founded the Nahj AI club in 2023."
+      ]
+    },
+    "cta": { "title": "Let's build your organization's future together", "button": "Contact us" }
+  },
+  "contactPage": {
+    "meta": { "title": "Contact us", "description": "Contact Pride Idea to discuss your organization's needs and the right AI solutions.", "ogDescription": "Let's talk about your organization and its needs." },
+    "eyebrow": "Contact us",
+    "title": "Let's talk about your organization",
+    "description": "Tell us about the challenge you face, and one of our experts will get back to you within [one business day].",
+    "infoTitle": "Contact details",
+    "infoText": "We'd be glad to learn about your organization's needs.",
+    "whatsapp": "WhatsApp"
+  },
+  "contactForm": {
+    "name": "Full name",
+    "namePlaceholder": "Your name",
+    "organization": "Organization",
+    "organizationPlaceholder": "Organization name",
+    "role": "Job title",
+    "rolePlaceholder": "Job title",
+    "email": "Email",
+    "emailPlaceholder": "name@company.com",
+    "phone": "Phone number",
+    "phonePlaceholder": "+967",
+    "sector": "Sector",
+    "sectorPlaceholder": "Select a sector",
+    "sectors": ["Education & universities", "Banks & e-wallets", "Telecommunications", "Government & public services", "Healthcare", "Retail & e-commerce", "Events & conferences", "Other"],
+    "interest": "Area of interest",
+    "interestPlaceholder": "Select an area of interest",
+    "interests": ["Service", "Product", "Training", "Partnership"],
+    "message": "Your message",
+    "messagePlaceholder": "Tell us about the challenge you face",
+    "submit": "Send request",
+    "error": "Please check the required fields and make sure the email and phone number are valid, then try again.",
+    "success": "We've prepared your request in your email app. Review it and send it to complete the request. If the app didn't open, email us directly at {email}.",
+    "mailSubject": "Contact request from {name} — {organization}",
+    "mailMessageLabel": "Message:"
+  },
+  "faqPage": {
+    "meta": { "title": "FAQ", "description": "Answers to organizations' questions about Pride Idea's AI solutions.", "ogDescription": "Answers to your questions about Pride Idea's services and products." },
+    "eyebrow": "FAQ",
+    "title": "Answers to help you decide",
+    "cta": { "title": "Have another question?", "button": "Contact us" }
+  },
+  "industriesPage": {
+    "meta": { "title": "Industries we serve", "description": "Pride Idea solutions for sectors that serve large numbers of customers.", "ogDescription": "Solutions that understand your sector." },
+    "eyebrow": "Industries",
+    "title": "Solutions that understand your sector",
+    "description": "Every sector has its own challenges, so we match our services and products to what your sector actually needs.",
+    "columns": ["Sector", "Challenge", "How we help", "Recommended solutions"],
+    "cta": { "title": "Don't see your sector?", "button": "Tell us what you need" }
+  },
+  "privacyPage": {
+    "meta": { "title": "Privacy policy", "description": "Pride Idea privacy policy.", "ogDescription": "Pride Idea privacy policy." },
+    "eyebrow": "Privacy & terms",
+    "title": "Privacy policy",
+    "note": "[The approved legal privacy policy text will be added before launch.]"
+  },
+  "termsPage": {
+    "meta": { "title": "Terms of use", "description": "Terms of use for the Pride Idea website.", "ogDescription": "Terms of use for the Pride Idea website." },
+    "eyebrow": "Privacy & terms",
+    "title": "Terms of use",
+    "note": "[The approved legal terms of use will be added before launch.]"
+  },
+  "storiesPage": {
+    "meta": { "title": "Success stories", "description": "Results we are proud of from Pride Idea's enterprise AI solutions.", "ogDescription": "We measure success by what actually changes for our clients." },
+    "eyebrow": "Success stories",
+    "title": "Results we are proud of",
+    "description": "We measure success by what actually changes for our clients.",
+    "labels": { "client": "Client:", "challenge": "Challenge:", "solution": "Solution:", "results": "Results:", "resultsHeading": "Results" },
+    "stories": [
+      {
+        "sector": "Education & universities",
+        "title": "Waddah Al-Razi — Al-Razi University",
+        "note": "",
+        "client": "Al-Razi University, a higher education institution.",
+        "challenge": "Thousands of inquiries from students and visitors across multiple channels, especially during registration periods, with a small team to respond.",
+        "solution": "We built \"Waddah\", an intelligent assistant that knows the university's regulations and services and serves students and visitors on WhatsApp, Facebook, Instagram and the website. It answers academic questions, guides students through registration and welcomes visitors digitally.",
+        "results": ["[More than 5,000] conversations.", "[Around 65%] improvement in response efficiency.", "Round-the-clock service across [five] channels."],
+        "resultsText": "",
+        "quote": "[A quote from a university official, once obtained.]"
+      },
+      {
+        "sector": "",
+        "title": "A financial institution",
+        "note": "[To be published after the client approves being named and the project status is confirmed: pilot or completed.]",
+        "client": "[Institution name or a general description: \"a Yemeni banking institution\"].",
+        "challenge": "[...]",
+        "solution": "[...]",
+        "results": [],
+        "resultsText": "[...]",
+        "quote": ""
+      }
+    ],
+    "cta": { "title": "Want to be our next success story?", "button": "Talk to an expert" }
+  },
+  "productsPage": {
+    "meta": { "title": "Our products", "description": "Ready-to-deploy AI products from Pride Idea for Arab organizations.", "ogDescription": "Pride Idea's product portfolio for Arab organizations." },
+    "eyebrow": "Pride Idea portfolio",
+    "title": "Intelligent products, ready to deploy",
+    "description": "We have built products that solve recurring challenges for organizations. Each can be customized, connected to your systems and deployed the way that suits you.",
+    "placementTitle": "The right solution for each need",
+    "placement": ["Customer service & conversations: DarAI", "Digital identity & compliance: PrideScreen · PridePass", "Events: Smart Invitations"],
+    "cta": { "title": "Let's talk about your organization's needs", "button": "Talk to an expert" }
+  },
+  "productDetail": {
+    "eyebrowPrefix": "Pride Idea products",
+    "notFound": "Product not found",
+    "challenge": "The challenge",
+    "howItWorks": "How it works",
+    "channels": "Channels",
+    "integrations": "Integrations",
+    "security": "Security",
+    "deployment": "Deployment options",
+    "pricingLabel": "Plans:",
+    "pricingNote": "Shown once final pricing is approved, or a \"Request a quote\" button.",
+    "audience": "Who it's for"
+  },
+  "servicesPage": {
+    "meta": { "title": "Our services", "description": "Pride Idea services in enterprise AI, process automation, integration, custom solutions and training.", "ogDescription": "Pride Idea enterprise AI services." },
+    "eyebrow": "Pride Idea services",
+    "title": "Services that move your organization to intelligent operations",
+    "description": "Whether you are starting your AI journey or looking to solve a specific problem, we stay with you from diagnosis to deployment.",
+    "processTitle": "From idea to operation",
+    "process": ["Understand your needs: we analyze your processes, challenges and data.", "Design the solution: we define the right solution, its scope and success metrics.", "Build and connect: we build the solution and connect it to your existing systems.", "Run and support: we train your team, monitor performance and keep improving."],
+    "cta": { "title": "Let's build your organization's future together", "button": "Talk to an expert" }
+  },
+  "serviceDetail": {
+    "eyebrowPrefix": "Our services",
+    "notFound": "Service not found",
+    "offers": "What we offer",
+    "process": "How we work",
+    "value": "The value for your organization",
+    "ctaDescription": "Tell us about the challenge you face, and we'll suggest the right solution."
+  },
+  "notFound": {
+    "code": "404",
+    "title": "This page doesn't exist",
+    "text": "The link may be incorrect or the page may have moved.",
+    "button": "Back to the homepage"
+  },
+  "products": [
+    {
+      "slug": "darai",
+      "name": "DarAI",
+      "localName": "",
+      "pageTitle": "DarAI",
+      "symbol": "D",
+      "title": "All your customer conversations in one place",
+      "description": "An intelligent Arabic platform for managing customer conversations and service. It brings WhatsApp, Facebook, Instagram and your website into one inbox, and replies, routes and analyzes with AI.",
+      "audiences": ["Customer service", "Omnichannel conversations"],
+      "problem": ["Customer messages are scattered across many channels, and some get lost.", "Replies are slow, and nobody answers outside working hours.", "It's unclear who owns each conversation or how the team is performing.", "The same questions come up every day."],
+      "process": ["The customer sends a message on any channel.", "DarAI understands the request and searches your organization's knowledge.", "It replies instantly, or hands the conversation to the right employee with full context.", "It carries out the required action and logs everything in reports."],
+      "featuresTitle": "Features",
+      "features": ["Unified inbox: text, images, voice notes and files in one interface.", "Smart replies: understands customer intent and conversation context, and suggests replies to agents.", "Knowledge base: upload your documents so the assistant answers from them accurately.", "Team management: conversation routing, role-based permissions and per-agent performance tracking.", "Unified customer profile: a complete history for every customer across all channels.", "Automation: rules that trigger actions and call your systems automatically.", "Menus and buttons: interactive menus linked to your services and data.", "Reports: response times, open and closed conversations, and the most frequent questions."],
+      "channels": "WhatsApp Business · Facebook Messenger · Instagram · Website chat · Custom channels via API",
+      "integrations": "CRM systems · ERP systems · University systems · Financial systems · Webhooks",
+      "security": "Full data isolation for every organization, role-based permissions, encrypted connections and an audit log of every operation.",
+      "deployment": "Cloud · On your servers · Sovereign deployment with full data control",
+      "cta": "Request a demo",
+      "ctaTitle": "Never lose a customer again."
+    },
+    {
+      "slug": "pridescreen",
+      "name": "PrideScreen",
+      "localName": "",
+      "pageTitle": "PrideScreen",
+      "symbol": "P",
+      "title": "Smart screening for safer customers",
+      "description": "A platform that screens your customers and partners against blacklists, sanctions and watch lists, reducing compliance risk before you start doing business.",
+      "audiences": ["Banks", "E-wallets", "Exchange companies", "Insurance companies", "Financial institutions"],
+      "problem": [],
+      "process": [],
+      "featuresTitle": "What it offers",
+      "features": ["Name screening against sanctions, watch lists and blacklists.", "Smart name matching that accounts for Arabic and English spelling variations.", "A clear screening result that helps compliance officers decide.", "A complete log of every screening for audit purposes.", "Support for due diligence, KYC and anti-money-laundering procedures."],
+      "channels": "",
+      "integrations": "",
+      "security": "",
+      "deployment": "",
+      "cta": "Request a demo",
+      "ctaTitle": "Smart screening for safer customers"
+    },
+    {
+      "slug": "pridepass",
+      "name": "PridePass",
+      "localName": "",
+      "pageTitle": "PridePass",
+      "symbol": "P",
+      "title": "Digital verification that builds trust",
+      "description": "A remote electronic identity verification system (eKYC) that onboards customers quickly and protects your organization from identity fraud.",
+      "audiences": ["Banks", "E-wallets", "Telecom companies", "Any organization that needs to verify customer identity"],
+      "problem": [],
+      "process": ["The customer photographs their ID document.", "The system extracts the data automatically and checks its legibility.", "It matches the customer's face with the document photo.", "Your organization receives a clear verification result."],
+      "featuresTitle": "Benefits",
+      "features": ["Faster customer onboarding without a branch visit.", "Less identity theft and fraud.", "A fully digital onboarding experience."],
+      "channels": "",
+      "integrations": "",
+      "security": "",
+      "deployment": "",
+      "cta": "Request a demo",
+      "ctaTitle": "Digital verification that builds trust"
+    },
+    {
+      "slug": "smart-invitations",
+      "name": "Smart Invitations",
+      "localName": "",
+      "pageTitle": "Smart Invitations",
+      "symbol": "QR",
+      "title": "Organized events, invitations that can't be forged",
+      "description": "An end-to-end system for managing events and invitations that gives every guest a unique QR code and verifies it at the entrance.",
+      "audiences": ["Conferences", "Universities", "Government bodies", "Companies", "Event organizers"],
+      "problem": [],
+      "process": [],
+      "featuresTitle": "What it offers",
+      "features": ["Create events and manage guest lists.", "Digital invitations with a unique QR code for every guest.", "Set how many people each invitation admits.", "Verification at the gate that prevents invitation reuse.", "Attendance tracking and instant reports.", "Electronic certificates for participants.", "Support for hybrid events via Zoom."],
+      "channels": "",
+      "integrations": "",
+      "security": "",
+      "deployment": "",
+      "cta": "Request a quote for your event",
+      "ctaTitle": "Organized events, invitations that can't be forged"
+    }
+  ],
+  "services": [
+    {
+      "slug": "enterprise-ai",
+      "name": "Enterprise AI",
+      "title": "Digital assistants that know your organization",
+      "description": "We build intelligent assistants that understand Arabic and local dialects and answer from your organization's own documents, regulations and services, not from general information.",
+      "points": ["Digital assistants for customers and employees.", "Large language model and retrieval-augmented generation (RAG) solutions.", "Intelligent search across documents and files.", "Text extraction from images and documents (OCR).", "Automatic classification of requests and text.", "Analysis of conversations and customer behavior."],
+      "process": [],
+      "groups": [],
+      "value": "Faster answers, less pressure on staff, and institutional knowledge available anytime.",
+      "cta": "Request a consultation"
+    },
+    {
+      "slug": "automation",
+      "name": "Process automation",
+      "title": "Let systems handle the repetitive work",
+      "description": "We analyze your manual procedures and turn them into automated workflows that execute steps, send notifications and track requests, with human input only when needed.",
+      "points": ["Enterprise workflow design.", "Rules and conditions that trigger actions automatically.", "Connecting conversations to operational actions.", "Automated notifications and follow-ups.", "Integration with external services via APIs."],
+      "process": [],
+      "groups": [],
+      "value": "Fewer errors, less time, and a team free to focus on work that needs thinking.",
+      "cta": "Request a consultation"
+    },
+    {
+      "slug": "integration",
+      "name": "Systems & data integration",
+      "title": "Your systems working together, your data speaking up",
+      "description": "We connect your existing systems to each other and to AI solutions, and turn scattered data into reports and indicators that support your decisions.",
+      "points": ["Integration with CRM and ERP systems.", "Integration with university student-affairs systems.", "Connections to databases and financial systems.", "Integration with Meta platforms and WhatsApp Business.", "Dashboards and performance reports.", "Measuring response times and team and channel performance."],
+      "process": [],
+      "groups": [],
+      "value": "One clear picture instead of data scattered across systems.",
+      "cta": "Request a consultation"
+    },
+    {
+      "slug": "custom-solutions",
+      "name": "Custom solutions",
+      "title": "A solution designed for your challenge",
+      "description": "Some challenges can't be solved by off-the-shelf products. We design and build custom AI systems and deploy them in the cloud or on your own servers.",
+      "points": [],
+      "process": ["A discovery session to understand the challenge and the available data.", "A clear proposal with scope, timeline and success metrics.", "Phased development with results shared along the way.", "Handover, training and post-launch support."],
+      "groups": [],
+      "value": "",
+      "cta": "Discuss your idea with us"
+    },
+    {
+      "slug": "training",
+      "name": "Training & consulting",
+      "title": "Start your AI journey with a clear plan",
+      "description": "We help leaders make informed decisions about AI and prepare teams to use it with confidence.",
+      "points": [],
+      "process": [],
+      "groups": [
+        { "title": "Consulting", "points": ["AI readiness assessments.", "Roadmaps for intelligent transformation.", "Prioritizing the highest-return use cases.", "Digital transformation consulting."] },
+        { "title": "Training", "points": ["Programs for leaders on AI opportunities and risks.", "Hands-on workshops for employees on AI tools.", "Programs tailored to your sector and needs."] }
+      ],
+      "value": "",
+      "cta": "Request a training program"
+    }
+  ],
+  "sectors": [
+    { "name": "Education & universities", "challenge": "Repetitive student inquiries during registration and results periods", "solution": "A digital assistant that answers students and visitors around the clock and connects to the student-affairs system", "offers": "DarAI · Integration · Training" },
+    { "name": "Banks & e-wallets", "challenge": "High inquiry volumes and strict compliance requirements", "solution": "Intelligent customer service, digital identity verification and customer screening before onboarding", "offers": "DarAI · PridePass · PrideScreen" },
+    { "name": "Telecommunications", "challenge": "Large customer bases and constantly changing plans and prices", "solution": "An easy-to-update knowledge base and an assistant that answers questions about services and plans", "offers": "DarAI · Enterprise AI" },
+    { "name": "Government & public services", "challenge": "Paper-based procedures, queues and repetitive inquiries", "solution": "Process automation and a digital assistant for citizens, with a sovereign deployment option", "offers": "Process automation · DarAI · Custom solutions" },
+    { "name": "Healthcare", "challenge": "Bookings and inquiries that overwhelm the front desk", "solution": "Automated booking and inquiry handling over WhatsApp", "offers": "DarAI · Process automation" },
+    { "name": "Retail & e-commerce", "challenge": "Sales opportunities lost to slow replies", "solution": "Instant replies, order tracking and customer-interest analysis", "offers": "DarAI · Systems integration" },
+    { "name": "Events & conferences", "challenge": "Forged invitations and hard-to-control attendance", "solution": "Invitations with unique QR codes and instant verification at the entrance", "offers": "Smart Invitations" }
+  ],
+  "faq": [
+    { "q": "Do I need technical expertise to use your solutions?", "a": "No. We handle setup and integration and train your team for day-to-day use." },
+    { "q": "Where is my organization's data stored?", "a": "You choose: in the cloud, on your own servers, or in a sovereign deployment that gives you full control over your data." },
+    { "q": "Do your solutions understand local dialects?", "a": "Yes. Our solutions are built for Arabic and are trained on your customers' language and way of expressing themselves." },
+    { "q": "Can your solutions connect to our existing systems?", "a": "Yes. We connect to CRM, ERP, financial systems and databases through APIs." },
+    { "q": "Does the digital assistant replace employees?", "a": "No. It handles repetitive questions and hands complex cases to the right employee with the full conversation context." },
+    { "q": "How long does implementation take?", "a": "It depends on the scope and the integrations required. We set an accurate timeline after the discovery session." },
+    { "q": "Do you offer a trial before purchase?", "a": "Yes, we offer a demo [and a trial period for some products]." }
+  ]
+}

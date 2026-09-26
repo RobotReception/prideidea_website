@@ -1,30 +1,31 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./site.css";
-import "./landing.css";
-import "./editorial.css";
-import "./theme.css";
+import { getContent, site } from "./content";
+import { colorVariables } from "./content/colors";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://prideidea.com"),
-  title: { default: "برايد آيديا", template: "%s | برايد آيديا" },
-  description:
-    "حلول ذكاء اصطناعي مؤسسية باللغة العربية من صنعاء.",
-  keywords: [
-    "ذكاء اصطناعي", "حلول مؤسسية", "AI", "enterprise", "DarAI", "Pride Idea", "Yemen",
-  ],
-  openGraph: { type: "website", locale: "ar_YE", siteName: "برايد آيديا", title: "برايد آيديا", description: "حلول ذكاء اصطناعي مؤسسية باللغة العربية من صنعاء." },
-  icons: { icon: "/brand/mark.png" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getContent();
+  return {
+    metadataBase: new URL(site.siteUrl),
+    title: { default: t.meta.siteName, template: `%s | ${t.meta.siteName}` },
+    description: t.meta.description,
+    keywords: t.meta.keywords,
+    openGraph: { type: "website", locale: t.meta.ogLocale, siteName: t.meta.siteName, title: t.meta.siteName, description: t.meta.description },
+    icons: { icon: "/brand/mark.png" },
+  };
+}
 
 // Runs before first paint so the stored or system theme never flashes the wrong palette.
 const themeScript = `try{var t=localStorage.getItem("pi-theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const { lang, dir } = await getContent();
   return (
-    <html lang="ar" dir="rtl" data-theme="light" suppressHydrationWarning>
+    <html lang={lang} dir={dir} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <style dangerouslySetInnerHTML={{ __html: colorVariables }} />
       </head>
       <body>{children}</body>
     </html>

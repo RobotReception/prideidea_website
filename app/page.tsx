@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "./content";
 import HomePage from "./site/HomePage";
 
-export const metadata: Metadata = {
-  title: "برايد آيديا",
-  description: "حلول ذكاء اصطناعي مؤسسية باللغة العربية. نحوّل تحديات مؤسستك إلى أنظمة ذكية تعمل من أجلك.",
-  openGraph: { title: "برايد آيديا", description: "حلول ذكاء اصطناعي مؤسسية من صنعاء.", locale: "ar_YE", type: "website" },
-};
+export const generateMetadata = () => pageMetadata((t) => t.home.meta, { absoluteTitle: true });
 
 export default function Home() { return <HomePage />; }

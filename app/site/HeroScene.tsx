@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import colors from "../content/colors.json";
 
-const BG = 0x03080c;
-const ORANGE = 0xf39200;
-const ICE = 0x7fd4e8;
-const PETROL = 0x0e4157;
+const { light: LIGHT, dark: DARK } = colors.scene;
 const MAX_RIPPLES = 6;
 const RIPPLE_LIFE = 8;
 
@@ -81,7 +79,7 @@ export function HeroScene() {
       scene.add(ambient);
       const key = new THREE.PointLight(0xffffff, 60, 0, 2);
       key.position.set(5, 5, 5);
-      const warm = new THREE.PointLight(ORANGE, 30, 0, 2);
+      const warm = new THREE.PointLight(DARK.warmLight, 30, 0, 2);
       warm.position.set(-4, -3, 3);
       scene.add(key, warm);
 
@@ -89,29 +87,31 @@ export function HeroScene() {
       scene.add(sphere);
 
       const innerGeo = new THREE.IcosahedronGeometry(1, 3);
-      const innerMat = new THREE.MeshStandardMaterial({ color: 0x1b2a33, roughness: 0.45, metalness: 1, flatShading: true, transparent: true, opacity: 0.82 });
+      const innerMat = new THREE.MeshStandardMaterial({ color: DARK.sphere, roughness: 0.45, metalness: 1, flatShading: true, transparent: true, opacity: 0.82 });
       sphere.add(new THREE.Mesh(innerGeo, innerMat));
 
       const outerGeo = new THREE.IcosahedronGeometry(1.15, 3);
-      const wireMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1 });
+      const wireMat = new THREE.MeshBasicMaterial({ color: DARK.wire, wireframe: true, transparent: true, opacity: 0.1 });
       sphere.add(new THREE.Mesh(outerGeo, wireMat));
 
       const dotsGeo = new THREE.BufferGeometry();
       dotsGeo.setAttribute("position", outerGeo.getAttribute("position").clone());
-      const dotsMat = new THREE.PointsMaterial({ color: ORANGE, size: 0.028 });
+      const dotsMat = new THREE.PointsMaterial({ color: DARK.nodes, size: 0.028 });
       sphere.add(new THREE.Points(dotsGeo, dotsMat));
 
       const STARS = 1400;
       const starPos = new Float32Array(STARS * 3);
       const darkStars = new Float32Array(STARS * 3);
       const lightStars = new Float32Array(STARS * 3);
-      const ice = new THREE.Color(ICE), orange = new THREE.Color(ORANGE), white = new THREE.Color(0xdfe9ee);
-      const petrol = new THREE.Color(PETROL), steel = new THREE.Color(0x7d98a6);
+      const darkPalette = DARK.stars.map((hex) => new THREE.Color(hex));
+      const lightPalette = LIGHT.stars.map((hex) => new THREE.Color(hex));
+      // First palette entry is the accent (20% of stars), the rest share the remainder.
+      const pick = (palette: InstanceType<typeof THREE.Color>[], r: number) => palette[r < 0.2 ? 0 : Math.min(palette.length - 1, 1 + Math.floor(((r - 0.2) / 0.8) * (palette.length - 1)))];
       for (let i = 0; i < STARS; i++) {
         starPos.set([(Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200], i * 3);
         const r = Math.random();
-        const d = r < 0.2 ? orange : r < 0.65 ? ice : white;
-        const l = r < 0.2 ? orange : r < 0.65 ? petrol : steel;
+        const d = pick(darkPalette, r);
+        const l = pick(lightPalette, r);
         darkStars.set([d.r, d.g, d.b], i * 3);
         lightStars.set([l.r, l.g, l.b], i * 3);
       }
@@ -133,16 +133,19 @@ export function HeroScene() {
 
       const applyTheme = () => {
         const dark = document.documentElement.getAttribute("data-theme") === "dark";
-        renderer.setClearColor(dark ? BG : 0xffffff, dark ? 1 : 0);
+        renderer.setClearColor(dark ? DARK.background : "#ffffff", dark ? 1 : 0);
         bloom.enabled = dark;
         ambient.intensity = dark ? 0.25 : 1.5;
         key.intensity = dark ? 60 : 38;
         warm.intensity = dark ? 30 : 6;
-        innerMat.color.setHex(dark ? 0x1b2a33 : 0xeef4f7);
+        const palette = dark ? DARK : LIGHT;
+        warm.color.set(palette.warmLight);
+        innerMat.color.set(palette.sphere);
         innerMat.metalness = dark ? 1 : 0.08;
         innerMat.roughness = dark ? 0.45 : 0.6;
         innerMat.opacity = dark ? 0.82 : 0.78;
-        wireMat.color.setHex(dark ? 0xffffff : PETROL);
+        wireMat.color.set(palette.wire);
+        dotsMat.color.set(palette.nodes);
         wireMat.opacity = dark ? 0.1 : 0.3;
         dotsMat.size = dark ? 0.028 : 0.036;
         starMat.size = dark ? 0.1 : 0.14;

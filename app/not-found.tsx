@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { getContent } from "./content";
 import { PageFrame } from "./site/shared";
 
-export default function NotFound() {
-  return <PageFrame><main id="main-content" className="pi-wrap pi-not-found"><b>404</b><h1>هذه الصفحة غير موجودة</h1><p>قد يكون الرابط غير صحيح أو أن الصفحة نُقلت.</p><Link className="pi-button" href="/">العودة إلى الصفحة الرئيسية</Link></main></PageFrame>;
+export default async function NotFound() {
+  const { t: { notFound } } = await getContent();
+  return <PageFrame><main id="main-content" className="pi-wrap pi-not-found"><b>{notFound.code}</b><h1>{notFound.title}</h1><p>{notFound.text}</p><Link className="pi-button" href="/">{notFound.button}</Link></main></PageFrame>;
 }

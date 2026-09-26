@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
-import { faq } from "../site/content";
+import { getContent, pageMetadata } from "../content";
 import { ContentText, CtaBand, PageFrame, PageIntro } from "../site/shared";
 
-export const metadata: Metadata = { title: "الأسئلة الشائعة", description: "إجابات عن أسئلة المؤسسات حول حلول برايد آيديا للذكاء الاصطناعي.", openGraph: { title: "الأسئلة الشائعة", description: "إجابات عن أسئلتك حول خدمات ومنتجات برايد آيديا.", locale: "ar_YE", type: "website" } };
+export const generateMetadata = () => pageMetadata((t) => t.faqPage.meta);
 
-export default function FAQPage() {
-  return <PageFrame><main id="main-content"><PageIntro eyebrow="الأسئلة الشائعة" title="إجابات تساعدك على اتخاذ القرار" />
-    <section className="pi-page-body"><div className="pi-wrap"><div className="pi-accordion">{faq.map((item) => <details key={item.q}><summary>{item.q}</summary><p><ContentText text={item.a} /></p></details>)}</div></div></section><div className="pi-wrap"><CtaBand title="هل لديك سؤال آخر؟" button="تواصل معنا" /></div>
+export default async function FAQPage() {
+  const { t } = await getContent();
+  const page = t.faqPage;
+  return <PageFrame><main id="main-content"><PageIntro eyebrow={page.eyebrow} title={page.title} />
+    <section className="pi-page-body"><div className="pi-wrap"><div className="pi-accordion">{t.faq.map((item) => <details key={item.q}><summary>{item.q}</summary><p><ContentText text={item.a} /></p></details>)}</div></div></section><div className="pi-wrap"><CtaBand title={page.cta.title} button={page.cta.button} /></div>
   </main></PageFrame>;
 }
