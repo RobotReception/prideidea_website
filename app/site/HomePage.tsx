@@ -2,6 +2,7 @@ import Link from "next/link";
 import { products, services } from "./content";
 import { CtaBand, PageFrame, SectionHeading } from "./shared";
 import { HeroArtwork } from "./HeroArtwork";
+import NeuralField from "../components/NeuralField";
 
 const reasons = [
   ["العربية أولًا", "حلولنا مبنية لفهم العربية واللهجات المحلية."],
@@ -15,6 +16,7 @@ export default function HomePage() {
   return <PageFrame>
     <main id="main-content">
       <section className="pi-home-hero">
+        <NeuralField />
         <div className="pi-hero-inner">
           <div className="pi-hero-copy">
             <p className="pi-eyebrow pi-hero-badge"><i /> برايد آيديا لأنظمة الذكاء الاصطناعي</p>
