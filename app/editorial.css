@@ -1,7 +1,8 @@
-/* The homepage is deliberately calmer than the interior pages: one motif, one idea. */
+/* The homepage hero pairs the copy with a live Three.js scene on the opposite side. */
 .pi-home-hero { position: relative; background: #fff; }
 .pi-home-hero::before, .pi-home-hero::after { display: none; }
-.pi-home-hero > .neural-canvas { z-index: 0; opacity: .6; mix-blend-mode: normal; animation-duration: 22s; mask-image: radial-gradient(ellipse 70% 85% at 68% 45%, #000 0%, #000 45%, transparent 78%); }
+.pi-hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 26% 50%, #f3920012, transparent 34%), radial-gradient(circle at 26% 50%, #0e41570d, transparent 52%); }
+.pi-hero-scene canvas { display: block; width: 100%; height: 100%; }
 .pi-hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); align-items: center; gap: clamp(42px, 6vw, 104px); width: min(1200px, calc(100% - 72px)); min-height: 650px; padding-block: 58px 85px; }
 .pi-hero-copy { display: block; max-width: 640px; text-align: start; }
 .pi-hero-badge { display: inline-flex; align-items: center; gap: 11px; margin: 0 0 25px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: #0e4157; font-size: 13px; font-weight: 700; }
@@ -18,35 +19,6 @@
 .pi-hero-proof { display: flex; flex-wrap: wrap; gap: 12px 0; margin-top: 44px; padding-top: 18px; border-top: 1px solid #e4edf0; color: #6a7c83; font-size: 12px; font-weight: 600; animation: pi-hero-enter .75s .44s cubic-bezier(.16,1,.3,1) both; }
 .pi-hero-proof span { padding-inline: 17px; border-inline-start: 1px solid #d9e3e6; }
 .pi-hero-proof span:first-child { padding-inline-start: 0; border: 0; }
-.pi-hero-artwork { position: relative; z-index: 1; justify-self: center; width: 100%; max-width: 400px; aspect-ratio: 2 / 3; height: auto; margin: 0; overflow: hidden; border-radius: 25px; background: radial-gradient(ellipse at 50% 20%, #0b2d40 0%, #001322 62%, #000a13 100%); box-shadow: 0 33px 70px -40px #0013229e, inset 0 0 0 1px #ffffff0f; animation: pi-hero-enter .85s .2s cubic-bezier(.16,1,.3,1) both; }
-.pi-hero-artwork::after { position: absolute; content: ""; inset: 55% 0 0; background: linear-gradient(transparent, #00132219 28%, #001322c7); pointer-events: none; z-index: 2; }
-.pi-hero-artwork-kicker { position: absolute; z-index: 3; inset-block-start: 21px; inset-inline-start: 23px; display: inline-flex; align-items: center; gap: 11px; color: #f7fafb; font: 700 10px/1.5 Arial, sans-serif; letter-spacing: .17em; text-shadow: 0 2px 8px #001322; }
-.pi-hero-artwork-kicker i { width: 5px; height: 5px; border-radius: 50%; background: #f39200; }
-.pi-hero-artwork-caption { position: absolute; z-index: 3; inset-inline: 24px; inset-block-end: 20px; display: flex; align-items: center; gap: 12px; color: #fff; font-size: 16px; font-weight: 700; }
-.pi-hero-artwork-caption img { width: 25px; height: 30px; object-fit: contain; }
-
-/* Professional rotating 3D crystal motif, replacing the static hero photo */
-.pi-hero-3d { position: absolute; inset: 0; display: grid; place-items: center; perspective: 1400px; }
-.pi-hero-3d-ring { position: absolute; border: 1px solid #f3920030; border-radius: 50%; animation: pi-hero-ring-spin linear infinite; }
-.pi-hero-3d-ring.r1 { width: 62%; aspect-ratio: 1; animation-duration: 26s; }
-.pi-hero-3d-ring.r2 { width: 84%; aspect-ratio: 1; border-color: #7fd4e820; animation-duration: 34s; animation-direction: reverse; }
-.pi-hero-3d-stage { position: relative; width: 46%; aspect-ratio: .62; transform-style: preserve-3d; animation: pi-hero-3d-spin 16s ease-in-out infinite; }
-.pi-hero-3d-core { position: absolute; inset: 30% 22%; border-radius: 50%; background: radial-gradient(circle, #ffcf85 0%, #f39200 42%, #f3920000 72%); filter: blur(6px); opacity: .85; animation: pi-hero-core-pulse 4.5s ease-in-out infinite; }
-.pi-hero-3d-shard { position: absolute; inset: 0; background: linear-gradient(155deg, #7fd4e84a, #0e4157cc 55%, #001322f0); border: 1px solid #a9dcee3d; box-shadow: inset 0 0 24px #7fd4e81f; backface-visibility: hidden; }
-.pi-hero-3d-shard.s1 { clip-path: polygon(50% 0%, 100% 22%, 78% 62%, 30% 55%); transform: translateZ(38px) rotateX(6deg); }
-.pi-hero-3d-shard.s2 { clip-path: polygon(100% 22%, 100% 60%, 78% 62%); transform: translateZ(20px) rotateY(28deg); background: linear-gradient(155deg, #f3920055, #7fd4e830 60%, #001322f0); }
-.pi-hero-3d-shard.s3 { clip-path: polygon(0% 18%, 50% 0%, 30% 55%, 0% 48%); transform: translateZ(20px) rotateY(-28deg); }
-.pi-hero-3d-shard.s4 { clip-path: polygon(30% 55%, 78% 62%, 60% 100%, 38% 96%); transform: translateZ(30px) rotateX(-8deg); background: linear-gradient(160deg, #f3920070, #7fd4e824 55%, #001322f0); }
-.pi-hero-3d-shard.s5 { clip-path: polygon(0% 48%, 30% 55%, 38% 96%, 6% 78%); transform: translateZ(6px) rotateY(-42deg); }
-.pi-hero-3d-shard.s6 { clip-path: polygon(78% 62%, 100% 60%, 94% 84%, 60% 100%); transform: translateZ(6px) rotateY(42deg); }
-.pi-hero-3d-shard.s7 { clip-path: polygon(0% 18%, 0% 48%, 6% 78%, -6% 40%); transform: translateZ(-24px) rotateY(-58deg); opacity: .7; }
-.pi-hero-3d-shard.s8 { clip-path: polygon(50% 0%, 100% 22%, 106% 46%, 60% 20%); transform: translateZ(-24px) rotateY(58deg); opacity: .7; }
-@keyframes pi-hero-3d-spin { 0%, 100% { transform: rotateY(-14deg) rotateX(6deg); } 50% { transform: rotateY(14deg) rotateX(-4deg); } }
-@keyframes pi-hero-ring-spin { to { transform: rotate(360deg); } }
-@keyframes pi-hero-core-pulse { 0%, 100% { opacity: .6; transform: scale(.92); } 50% { opacity: .95; transform: scale(1.08); } }
-@media (prefers-reduced-motion: reduce) {
-  .pi-hero-3d-stage, .pi-hero-3d-ring, .pi-hero-3d-core { animation: none; }
-}
 .pi-about-strip { border-top: 1px solid #e8eff0; }
 .pi-about-strip .pi-intro-layout { align-items: center; }
 .pi-services-showcase { background: #f6f9fa; }
@@ -62,13 +34,13 @@
 @media (max-width: 1040px) {
   .pi-hero-inner { gap: 38px; width: min(100% - 52px, 1200px); }
   .pi-home-hero h1 { font-size: clamp(40px, 4.6vw, 56px); }
-  .pi-hero-artwork { max-width: 350px; }
 }
 @media (max-width: 820px) {
   .pi-hero-inner { grid-template-columns: 1fr; gap: 44px; width: min(100% - 44px, 700px); padding-block: 62px 70px; }
   .pi-hero-copy { max-width: 650px; }
+  .pi-home-hero .pi-hero-inner { padding-bottom: 380px; }
+  .pi-hero-scene { background: radial-gradient(circle at 50% calc(100% - 190px), #f3920014, transparent 40%); }
   .pi-home-hero h1 { max-width: 14ch; }
-  .pi-hero-artwork { max-width: 420px; }
 }
 @media (max-width: 620px) {
   .pi-hero-inner { gap: 35px; width: calc(100% - 36px); padding-block: 47px 62px; }
@@ -80,7 +52,5 @@
   .pi-hero-actions .pi-button { min-height: 49px; padding-inline: 9px; font-size: 12px; }
   .pi-hero-proof { margin-top: 30px; font-size: 11px; }
   .pi-hero-proof span { padding-inline: 10px; }
-  .pi-hero-artwork { max-width: 350px; border-radius: 18px; }
-  .pi-hero-artwork-caption { font-size: 14px; }
   .pi-home-cta { margin-block-start: 46px; }
 }
