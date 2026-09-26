@@ -1,7 +1,7 @@
 /* The homepage hero pairs the copy with a live Three.js scene on the opposite side. */
-.pi-home-hero { position: relative; background: #fff; }
+.pi-home-hero { position: relative; background: #03080c; color: #f4f8fa; }
 .pi-home-hero::before, .pi-home-hero::after { display: none; }
-.pi-hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 26% 50%, #f3920012, transparent 34%), radial-gradient(circle at 26% 50%, #0e41570d, transparent 52%); }
+.pi-hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .pi-hero-scene canvas { display: block; width: 100%; height: 100%; }
 .pi-hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); align-items: center; gap: clamp(42px, 6vw, 104px); width: min(1200px, calc(100% - 72px)); min-height: 650px; padding-block: 58px 85px; }
 .pi-hero-copy { display: block; max-width: 640px; text-align: start; }
@@ -19,6 +19,15 @@
 .pi-hero-proof { display: flex; flex-wrap: wrap; gap: 12px 0; margin-top: 44px; padding-top: 18px; border-top: 1px solid #e4edf0; color: #6a7c83; font-size: 12px; font-weight: 600; animation: pi-hero-enter .75s .44s cubic-bezier(.16,1,.3,1) both; }
 .pi-hero-proof span { padding-inline: 17px; border-inline-start: 1px solid #d9e3e6; }
 .pi-hero-proof span:first-child { padding-inline-start: 0; border: 0; }
+.pi-home-hero .pi-hero-badge { color: #cfe2e9; }
+:root .pi-home-hero .pi-hero-copy h1 { color: #fff; }
+:root .pi-home-hero .pi-hero-copy h1 span { color: #f39200; }
+.pi-home-hero .pi-hero-lead { color: #a9bcc5; }
+.pi-home-hero .pi-button-outline { color: #fff; border-color: #ffffff33; background: #ffffff08; backdrop-filter: blur(6px); }
+.pi-home-hero .pi-button-outline:hover { color: #fff; border-color: #ffffff66; background: #ffffff14; }
+.pi-home-hero .pi-hero-actions .pi-button:first-child { color: #03080c; box-shadow: 0 0 34px -6px #f3920080; }
+.pi-home-hero .pi-hero-proof { border-top-color: #ffffff1a; color: #8fa4ae; }
+.pi-home-hero .pi-hero-proof span { border-inline-start-color: #ffffff1f; }
 .pi-about-strip { border-top: 1px solid #e8eff0; }
 .pi-about-strip .pi-intro-layout { align-items: center; }
 .pi-services-showcase { background: #f6f9fa; }
@@ -39,7 +48,6 @@
   .pi-hero-inner { grid-template-columns: 1fr; gap: 44px; width: min(100% - 44px, 700px); padding-block: 62px 70px; }
   .pi-hero-copy { max-width: 650px; }
   .pi-home-hero .pi-hero-inner { padding-bottom: 380px; }
-  .pi-hero-scene { background: radial-gradient(circle at 50% calc(100% - 190px), #f3920014, transparent 40%); }
   .pi-home-hero h1 { max-width: 14ch; }
 }
 @media (max-width: 620px) {

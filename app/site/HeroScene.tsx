@@ -2,117 +2,162 @@
 
 import { useEffect, useRef } from "react";
 
-const PETROL = 0x0e4157;
+const BG = 0x03080c;
 const ORANGE = 0xf39200;
-const CYAN = 0x2bb3d1;
+const ICE = 0x7fd4e8;
+const MAX_RIPPLES = 6;
+const RIPPLE_LIFE = 8;
+
+const RippleShader = {
+  uniforms: {
+    tDiffuse: { value: null },
+    centers: { value: [] as unknown[] },
+    times: { value: Array(MAX_RIPPLES).fill(0) },
+    rippleOn: { value: Array(MAX_RIPPLES).fill(0) },
+    aspect: { value: 1 },
+  },
+  vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: `
+    #define PI 3.14159265359
+    #define MAX_RIPPLES ${MAX_RIPPLES}
+    uniform sampler2D tDiffuse;
+    uniform vec2 centers[MAX_RIPPLES];
+    uniform float times[MAX_RIPPLES];
+    uniform float rippleOn[MAX_RIPPLES];
+    uniform float aspect;
+    varying vec2 vUv;
+    void main() {
+      vec2 uv = vUv;
+      vec2 wave = vec2(0.0);
+      for (int i = 0; i < MAX_RIPPLES; i++) {
+        if (rippleOn[i] > 0.0) {
+          vec2 d = vec2((uv.x - centers[i].x) * aspect, uv.y - centers[i].y);
+          float dist = length(d);
+          float t = times[i] * 0.3;
+          if (dist < t && dist > 0.0001) {
+            float decay = 1.0 / (1.0 + 0.6 * dist * dist);
+            float fade = pow(smoothstep(6.0, 4.0, times[i]), 2.0);
+            float edge = 1.0 - smoothstep(0.05, 1.0, dist);
+            float amp = 0.03 * sin(10.0 * (t - dist)) + 0.01 * sin(5.0 * (t - dist) + PI);
+            wave += normalize(d) * amp * decay * edge * fade;
+          }
+        }
+      }
+      gl_FragColor = texture2D(tDiffuse, clamp(uv + wave, 0.0, 1.0));
+    }
+  `,
+};
 
 export function HeroScene() {
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = host.current;
-    if (!el) return;
+    const section = el?.parentElement;
+    if (!el || !section) return;
     let disposed = false;
     let cleanup = () => {};
 
-    import("three").then((THREE) => {
+    Promise.all([
+      import("three"),
+      import("three/addons/postprocessing/EffectComposer.js"),
+      import("three/addons/postprocessing/RenderPass.js"),
+      import("three/addons/postprocessing/UnrealBloomPass.js"),
+      import("three/addons/postprocessing/ShaderPass.js"),
+    ]).then(([THREE, { EffectComposer }, { RenderPass }, { UnrealBloomPass }, { ShaderPass }]) => {
       if (disposed) return;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      renderer.setClearColor(0x000000, 0);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer.setClearColor(BG, 1);
       el.appendChild(renderer.domElement);
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 1, 1000);
-      camera.position.z = 400;
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
+      camera.position.z = 5;
 
-      const rig = new THREE.Group();
-      const circle = new THREE.Object3D();
-      const skelet = new THREE.Object3D();
-      rig.add(circle, skelet);
-      scene.add(rig);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+      const key = new THREE.PointLight(0xffffff, 60, 0, 2);
+      key.position.set(5, 5, 5);
+      const warm = new THREE.PointLight(ORANGE, 30, 0, 2);
+      warm.position.set(-4, -3, 3);
+      scene.add(key, warm);
 
-      const planetGeom = new THREE.IcosahedronGeometry(7, 1);
-      const planetMat = new THREE.MeshPhongMaterial({ color: PETROL, flatShading: true, shininess: 60, specular: 0x335566 });
-      const planet = new THREE.Mesh(planetGeom, planetMat);
-      planet.scale.setScalar(16);
-      circle.add(planet);
+      const sphere = new THREE.Group();
+      scene.add(sphere);
 
-      const skeletGeom = new THREE.IcosahedronGeometry(15, 1);
-      const skeletMat = new THREE.MeshBasicMaterial({ color: ORANGE, wireframe: true, transparent: true, opacity: 0.55 });
-      const skeleton = new THREE.Mesh(skeletGeom, skeletMat);
-      skeleton.scale.setScalar(10);
-      skelet.add(skeleton);
+      const innerGeo = new THREE.IcosahedronGeometry(1, 3);
+      const innerMat = new THREE.MeshStandardMaterial({ color: 0x1b2a33, roughness: 0.45, metalness: 1, flatShading: true, transparent: true, opacity: 0.82 });
+      sphere.add(new THREE.Mesh(innerGeo, innerMat));
 
-      const nodeGeom = new THREE.SphereGeometry(0.32, 10, 10);
-      const nodeMat = new THREE.MeshBasicMaterial({ color: ORANGE });
-      const verts = skeletGeom.getAttribute("position");
-      const seen = new Set<string>();
-      const nodePos: [number, number, number][] = [];
-      for (let i = 0; i < verts.count; i++) {
-        const x = verts.getX(i), y = verts.getY(i), z = verts.getZ(i);
-        const key = `${x.toFixed(2)},${y.toFixed(2)},${z.toFixed(2)}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        nodePos.push([x, y, z]);
-      }
-      const nodes = new THREE.InstancedMesh(nodeGeom, nodeMat, nodePos.length);
-      const m = new THREE.Matrix4();
-      nodePos.forEach(([x, y, z], i) => nodes.setMatrixAt(i, m.makeTranslation(x, y, z)));
-      skeleton.add(nodes);
+      const outerGeo = new THREE.IcosahedronGeometry(1.15, 3);
+      const wireMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1 });
+      sphere.add(new THREE.Mesh(outerGeo, wireMat));
 
-      const PARTICLES = window.innerWidth < 820 ? 260 : 520;
-      const MIST = 0x9db7c3;
-      const shardGeom = new THREE.TetrahedronGeometry(2, 0);
-      const shardMat = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
-      const particles = new THREE.InstancedMesh(shardGeom, shardMat, PARTICLES);
-      const dummy = new THREE.Object3D();
-      const mist = new THREE.Color(MIST), petrol = new THREE.Color(PETROL), orange = new THREE.Color(ORANGE);
-      for (let i = 0; i < PARTICLES; i++) {
-        dummy.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiplyScalar(200 + Math.random() * 620);
-        dummy.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
-        dummy.scale.setScalar(0.35 + Math.random() * 0.75);
-        dummy.updateMatrix();
-        particles.setMatrixAt(i, dummy.matrix);
+      const dotsGeo = new THREE.BufferGeometry();
+      dotsGeo.setAttribute("position", outerGeo.getAttribute("position").clone());
+      const dotsMat = new THREE.PointsMaterial({ color: ORANGE, size: 0.028 });
+      sphere.add(new THREE.Points(dotsGeo, dotsMat));
+
+      const STARS = 1400;
+      const starPos = new Float32Array(STARS * 3);
+      const starCol = new Float32Array(STARS * 3);
+      const ice = new THREE.Color(ICE), orange = new THREE.Color(ORANGE), white = new THREE.Color(0xdfe9ee);
+      for (let i = 0; i < STARS; i++) {
+        starPos.set([(Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200], i * 3);
         const r = Math.random();
-        particles.setColorAt(i, r < 0.18 ? orange : r < 0.42 ? petrol : mist);
+        const c = r < 0.2 ? orange : r < 0.65 ? ice : white;
+        starCol.set([c.r, c.g, c.b], i * 3);
       }
-      const particle = new THREE.Object3D();
-      particle.add(particles);
-      scene.add(particle);
+      const starGeo = new THREE.BufferGeometry();
+      starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+      starGeo.setAttribute("color", new THREE.BufferAttribute(starCol, 3));
+      const starMat = new THREE.PointsMaterial({ size: 0.1, vertexColors: true, sizeAttenuation: true });
+      const stars = new THREE.Points(starGeo, starMat);
+      scene.add(stars);
 
-      scene.add(new THREE.AmbientLight(0xffffff, 1.1));
-      const key = new THREE.DirectionalLight(0xffffff, 1.9);
-      key.position.set(1, 0, 0);
-      const warm = new THREE.DirectionalLight(ORANGE, 1.7);
-      warm.position.set(0.75, 1, 0.5);
-      const cool = new THREE.DirectionalLight(CYAN, 2.6);
-      cool.position.set(-0.75, -1, 0.5);
-      scene.add(key, warm, cool);
+      const composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 1.25, 0.4, 0.05);
+      composer.addPass(bloom);
+      RippleShader.uniforms.centers.value = Array.from({ length: MAX_RIPPLES }, () => new THREE.Vector2(0.5, 0.5));
+      const ripple = new ShaderPass(RippleShader);
+      composer.addPass(ripple);
 
+      const ripples: { x: number; y: number; start: number }[] = [];
+      const addRipple = (x: number, y: number) => {
+        ripples.push({ x, y, start: performance.now() / 1000 });
+        if (ripples.length > MAX_RIPPLES) ripples.shift();
+      };
+      const syncRipples = () => {
+        const now = performance.now() / 1000;
+        for (let i = ripples.length - 1; i >= 0; i--) if (now - ripples[i].start > RIPPLE_LIFE) ripples.splice(i, 1);
+        const { centers, times, rippleOn } = ripple.uniforms;
+        for (let i = 0; i < MAX_RIPPLES; i++) {
+          const r = ripples[i];
+          rippleOn.value[i] = r ? 1 : 0;
+          if (r) { centers.value[i].set(r.x, r.y); times.value[i] = now - r.start; }
+        }
+      };
+
+      const center = { x: 0.5, y: 0.5 };
       const layout = () => {
         const w = el.clientWidth, h = el.clientHeight;
         if (!w || !h) return;
         renderer.setSize(w, h, false);
+        composer.setSize(w, h);
         camera.aspect = w / h;
+        const mobile = w < 820;
+        const radiusPx = mobile ? Math.min(w * 0.34, 150) : Math.min(h * 0.3, w * 0.16);
+        camera.position.z = (1.15 * h) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * radiusPx);
+        const rtl = getComputedStyle(section).direction === "rtl";
+        center.x = mobile ? 0.5 : rtl ? 0.25 : 0.75;
+        center.y = mobile ? 1 - (radiusPx + 50) / h : 0.5;
+        // shift the view window instead of the mesh so the sphere stays undistorted off-center
+        camera.setViewOffset(w, h, (0.5 - center.x) * w, (0.5 - center.y) * h, w, h);
         camera.updateProjectionMatrix();
-        const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
-        const halfW = halfH * camera.aspect;
-        const rtl = getComputedStyle(el).direction === "rtl";
-        const unit = (2 * halfH) / h;
-        // perspective enlarges the 150-unit wireframe to ~240 units on screen
-        const fit = (px: number) => (px * unit) / 240;
-        if (w < 820) {
-          const radiusPx = Math.min(w * 0.42, 170);
-          rig.position.set(0, -halfH + (radiusPx + 30) * unit, 0);
-          rig.scale.setScalar(fit(radiusPx));
-        } else {
-          const radiusPx = Math.min(h * 0.36, w * 0.17);
-          rig.position.set((rtl ? -1 : 1) * halfW * 0.5, 0, 0);
-          rig.scale.setScalar(fit(radiusPx));
-        }
+        ripple.uniforms.aspect.value = w / h;
       };
       layout();
       const ro = new ResizeObserver(layout);
@@ -123,19 +168,26 @@ export function HeroScene() {
         pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
         pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
       };
+      const onDbl = (e: MouseEvent) => {
+        if ((e.target as HTMLElement).closest("a, button, h1, p")) return;
+        const rect = el.getBoundingClientRect();
+        addRipple((e.clientX - rect.left) / rect.width, 1 - (e.clientY - rect.top) / rect.height);
+      };
       window.addEventListener("pointermove", onMove, { passive: true });
+      section.addEventListener("dblclick", onDbl);
 
       let raf = 0;
       let visible = true;
+      const tilt = new THREE.Euler();
       const frame = () => {
-        particle.rotation.y -= 0.0012;
-        circle.rotation.x -= 0.002;
-        circle.rotation.y -= 0.003;
-        skelet.rotation.x -= 0.001;
-        skelet.rotation.y += 0.002;
-        rig.rotation.y += (pointer.x * 0.25 - rig.rotation.y) * 0.04;
-        rig.rotation.x += (pointer.y * 0.18 - rig.rotation.x) * 0.04;
-        renderer.render(scene, camera);
+        sphere.rotation.x += 0.002;
+        sphere.rotation.y += 0.003;
+        stars.rotation.y += 0.0003;
+        tilt.set(pointer.y * 0.12, pointer.x * 0.18, 0);
+        scene.rotation.x += (tilt.x - scene.rotation.x) * 0.04;
+        scene.rotation.y += (tilt.y - scene.rotation.y) * 0.04;
+        syncRipples();
+        composer.render();
         if (visible) raf = requestAnimationFrame(frame);
       };
 
@@ -144,16 +196,21 @@ export function HeroScene() {
         cancelAnimationFrame(raf);
         if (visible && !reduced) raf = requestAnimationFrame(frame);
       });
-      if (reduced) renderer.render(scene, camera);
-      else io.observe(el);
+      if (reduced) composer.render();
+      else {
+        addRipple(center.x, 1 - center.y);
+        io.observe(el);
+      }
 
       cleanup = () => {
         cancelAnimationFrame(raf);
         io.disconnect();
         ro.disconnect();
         window.removeEventListener("pointermove", onMove);
-        [planetGeom, skeletGeom, nodeGeom, shardGeom].forEach((g) => g.dispose());
-        [planetMat, skeletMat, nodeMat, shardMat].forEach((mat) => mat.dispose());
+        section.removeEventListener("dblclick", onDbl);
+        [innerGeo, outerGeo, dotsGeo, starGeo].forEach((g) => g.dispose());
+        [innerMat, wireMat, dotsMat, starMat].forEach((m) => m.dispose());
+        composer.dispose();
         renderer.dispose();
         renderer.domElement.remove();
       };
