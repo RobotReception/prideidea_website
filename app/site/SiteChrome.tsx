@@ -14,6 +14,18 @@ const links = [
   ["/contact", "تواصل معنا"],
 ] as const;
 
+function ThemeToggle() {
+  const toggle = () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("pi-theme", next); } catch {}
+  };
+  return <button className="pi-theme-toggle" type="button" onClick={toggle} aria-label="تبديل الوضع الليلي والنهاري" title="تبديل الوضع الليلي والنهاري">
+    <svg className="pi-theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+    <svg className="pi-theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+  </button>;
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -33,15 +45,19 @@ export function SiteHeader() {
   return <header className="pi-header" ref={headerRef}>
     <div className="pi-header-inner">
       <Link href="/" className="pi-brand" aria-label="برايد آيديا — الرئيسية">
-        <img src="/brand/lockup.png" alt="برايد آيديا لأنظمة الذكاء الاصطناعي" width="310" height="110" />
+        <img className="pi-brand-light" src="/brand/lockup.png" alt="برايد آيديا لأنظمة الذكاء الاصطناعي" width="310" height="110" />
+        <img className="pi-brand-dark" src="/brand/lockup-light.png" alt="" width="310" height="110" />
       </Link>
-      <button className="pi-menu-toggle" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="pi-navigation" aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}>
-        <span /><span />
-      </button>
-      <nav id="pi-navigation" className={`pi-nav${open ? " is-open" : ""}`} aria-label="التنقل الرئيسي">
-        {links.map(([href, label]) => <Link key={href} href={href} onClick={() => setOpen(false)} aria-current={pathname === href || pathname?.startsWith(`${href}/`) ? "page" : undefined}>{label}</Link>)}
-        <Link className="pi-button pi-button-small" href="/contact" onClick={() => setOpen(false)}>تحدّث مع خبير</Link>
-      </nav>
+      <div className="pi-header-tools">
+        <button className="pi-menu-toggle" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="pi-navigation" aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}>
+          <span /><span />
+        </button>
+        <nav id="pi-navigation" className={`pi-nav${open ? " is-open" : ""}`} aria-label="التنقل الرئيسي">
+          {links.map(([href, label]) => <Link key={href} href={href} onClick={() => setOpen(false)} aria-current={pathname === href || pathname?.startsWith(`${href}/`) ? "page" : undefined}>{label}</Link>)}
+          <Link className="pi-button pi-button-small" href="/contact" onClick={() => setOpen(false)}>تحدّث مع خبير</Link>
+        </nav>
+        <ThemeToggle />
+      </div>
     </div>
     <span className="pi-reading-progress" ref={progressRef} aria-hidden="true" />
   </header>;

@@ -3,6 +3,7 @@ import "./globals.css";
 import "./site.css";
 import "./landing.css";
 import "./editorial.css";
+import "./theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://prideidea.com"),
@@ -16,9 +17,15 @@ export const metadata: Metadata = {
   icons: { icon: "/brand/mark.png" },
 };
 
+// Runs before first paint so the stored or system theme never flashes the wrong palette.
+const themeScript = `try{var t=localStorage.getItem("pi-theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ar" dir="rtl" data-theme="light">
+    <html lang="ar" dir="rtl" data-theme="light" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );

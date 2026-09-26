@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 const BG = 0x03080c;
 const ORANGE = 0xf39200;
 const ICE = 0x7fd4e8;
+const PETROL = 0x0e4157;
 const MAX_RIPPLES = 6;
 const RIPPLE_LIFE = 8;
 
@@ -68,16 +69,16 @@ export function HeroScene() {
       if (disposed) return;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-      renderer.setClearColor(BG, 1);
       el.appendChild(renderer.domElement);
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
       camera.position.z = 5;
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+      const ambient = new THREE.AmbientLight(0xffffff, 0.25);
+      scene.add(ambient);
       const key = new THREE.PointLight(0xffffff, 60, 0, 2);
       key.position.set(5, 5, 5);
       const warm = new THREE.PointLight(ORANGE, 30, 0, 2);
@@ -102,14 +103,19 @@ export function HeroScene() {
 
       const STARS = 1400;
       const starPos = new Float32Array(STARS * 3);
-      const starCol = new Float32Array(STARS * 3);
+      const darkStars = new Float32Array(STARS * 3);
+      const lightStars = new Float32Array(STARS * 3);
       const ice = new THREE.Color(ICE), orange = new THREE.Color(ORANGE), white = new THREE.Color(0xdfe9ee);
+      const petrol = new THREE.Color(PETROL), steel = new THREE.Color(0x7d98a6);
       for (let i = 0; i < STARS; i++) {
         starPos.set([(Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200, (Math.random() - 0.5) * 200], i * 3);
         const r = Math.random();
-        const c = r < 0.2 ? orange : r < 0.65 ? ice : white;
-        starCol.set([c.r, c.g, c.b], i * 3);
+        const d = r < 0.2 ? orange : r < 0.65 ? ice : white;
+        const l = r < 0.2 ? orange : r < 0.65 ? petrol : steel;
+        darkStars.set([d.r, d.g, d.b], i * 3);
+        lightStars.set([l.r, l.g, l.b], i * 3);
       }
+      const starCol = darkStars.slice();
       const starGeo = new THREE.BufferGeometry();
       starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
       starGeo.setAttribute("color", new THREE.BufferAttribute(starCol, 3));
@@ -124,6 +130,27 @@ export function HeroScene() {
       RippleShader.uniforms.centers.value = Array.from({ length: MAX_RIPPLES }, () => new THREE.Vector2(0.5, 0.5));
       const ripple = new ShaderPass(RippleShader);
       composer.addPass(ripple);
+
+      const applyTheme = () => {
+        const dark = document.documentElement.getAttribute("data-theme") === "dark";
+        renderer.setClearColor(dark ? BG : 0xffffff, dark ? 1 : 0);
+        bloom.enabled = dark;
+        ambient.intensity = dark ? 0.25 : 1.5;
+        key.intensity = dark ? 60 : 38;
+        warm.intensity = dark ? 30 : 6;
+        innerMat.color.setHex(dark ? 0x1b2a33 : 0xeef4f7);
+        innerMat.metalness = dark ? 1 : 0.08;
+        innerMat.roughness = dark ? 0.45 : 0.6;
+        innerMat.opacity = dark ? 0.82 : 0.78;
+        wireMat.color.setHex(dark ? 0xffffff : PETROL);
+        wireMat.opacity = dark ? 0.1 : 0.3;
+        dotsMat.size = dark ? 0.028 : 0.036;
+        starMat.size = dark ? 0.1 : 0.14;
+        const colors = starGeo.getAttribute("color") as InstanceType<typeof THREE.BufferAttribute>;
+        colors.copyArray(dark ? darkStars : lightStars);
+        colors.needsUpdate = true;
+      };
+      applyTheme();
 
       const ripples: { x: number; y: number; start: number }[] = [];
       const addRipple = (x: number, y: number) => {
@@ -174,6 +201,11 @@ export function HeroScene() {
         addRipple((e.clientX - rect.left) / rect.width, 1 - (e.clientY - rect.top) / rect.height);
       };
       window.addEventListener("pointermove", onMove, { passive: true });
+      const themeObserver = new MutationObserver(() => {
+        applyTheme();
+        if (reduced) composer.render();
+      });
+      themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
       section.addEventListener("dblclick", onDbl);
 
       let raf = 0;
@@ -206,6 +238,7 @@ export function HeroScene() {
         cancelAnimationFrame(raf);
         io.disconnect();
         ro.disconnect();
+        themeObserver.disconnect();
         window.removeEventListener("pointermove", onMove);
         section.removeEventListener("dblclick", onDbl);
         [innerGeo, outerGeo, dotsGeo, starGeo].forEach((g) => g.dispose());
